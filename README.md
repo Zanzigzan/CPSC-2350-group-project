@@ -20,3 +20,4 @@ Prerequisites: A device with internet access and installed web browser
 6. For each question, click the box that has the correct answer.
 7. If your answer is correct, proceed to next question. Otherwise, try again.
 8. Click "Exit" if you want to exit the quiz and go back to the homepage.
+
