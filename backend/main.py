@@ -1,11 +1,15 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from dotenv import load_dotenv
 
+import os
 import requests
 
 app = FastAPI()
 
-APIkey = ""
+load_dotenv()  # This loads the environment variables from the .env file
+
+DEEPL_API_KEY = os.getenv("DEEPL_API_KEY")
 url = "https://api-free.deepl.com/v2/"
 
 
@@ -26,7 +30,7 @@ def translate(textForTranslation: TextForTranslation):
     
     
     headers = {
-        'Authorization': f'DeepL-Auth-Key {APIkey}',
+        'Authorization': f'DeepL-Auth-Key {DEEPL_API_KEY}',
         'Content-Type': 'application/json'
     }
     data = {
