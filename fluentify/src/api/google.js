@@ -3,7 +3,7 @@ const apiUrl = import.meta.env.VITE_GOOGLE_URL;
 const apiKey = import.meta.env.VITE_GOOGLE_KEY;
 
 // The function to translate given text
-export async function Translate(text, target) {
+export async function translate(text, target) {
     const data = {
         "q": text,
         "target": target
@@ -36,7 +36,7 @@ export async function Translate(text, target) {
     } catch (error) {
         // Handle other errors
         console.error("Error:", error.message);
-        
+
         throw error;
     }
 }
