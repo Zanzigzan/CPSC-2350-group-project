@@ -21,12 +21,41 @@ export async function generateText(difficulty) {
         return `Unknown difficulty ${difficulty}! It should be easy, medium, or hard.`;
     }
 
-    // Data to be send
+    // Body
     const data = {
         "model": "gpt-3.5-turbo",
         "messages": [{
             "role": "user",
             "content": prompt[difficulty]
         }]
+    }
+
+    // Request options
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${OPENAI_KEY}`
+        },
+        body: JSON.stringify(data)
+    };
+
+    // The request
+    try {
+        const response = await fetch(OPENAI_URL, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+
+        // Extract and return the generated text
+        if (result.choices && result.choices.length > 0) {
+            return result.choices[0].message.content;
+        } else {
+            return 'No response from the API.';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return `Error: ${error.message}`;
     }
 }
