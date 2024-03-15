@@ -1,10 +1,10 @@
 // API info
-const OPENAI_URL = import.meta.env.OPENAI_URL;
-const OPENAI_KEY = import.meta.env.OPENAI_KEY;
+const OPENAI_URL = process.env.OPENAI_URL;
+const OPENAI_KEY = process.env.OPENAI_KEY;
 
-const OPENAI_GENERATE_TEXT_PROMPT_EASY = import.meta.env.OPENAI_GENERATE_TEXT_PROMPT_EASY;
-const OPENAI_GENERATE_TEXT_PROMPT_MEDIUM = import.meta.env.OPENAI_GENERATE_TEXT_PROMPT_MEDIUM;
-const OPENAI_GENERATE_TEXT_PROMPT_HARD = import.meta.env.OPENAI_GENERATE_TEXT_PROMPT_HARD;
+const OPENAI_GENERATE_TEXT_PROMPT_EASY = process.env.OPENAI_GENERATE_TEXT_PROMPT_EASY;
+const OPENAI_GENERATE_TEXT_PROMPT_MEDIUM = process.env.OPENAI_GENERATE_TEXT_PROMPT_MEDIUM;
+const OPENAI_GENERATE_TEXT_PROMPT_HARD = process.env.OPENAI_GENERATE_TEXT_PROMPT_HARD;
 
 const prompt = {
     "easy": OPENAI_GENERATE_TEXT_PROMPT_EASY,
@@ -13,7 +13,7 @@ const prompt = {
 }
 
 // The function to translate given text
-export async function generateText(difficulty) {
+async function generateText(difficulty) {
     // Validation
     difficulty = difficulty.toLowerCase();
 
@@ -59,3 +59,5 @@ export async function generateText(difficulty) {
         return `Error: ${error.message}`;
     }
 }
+
+module.exports = { generateText };

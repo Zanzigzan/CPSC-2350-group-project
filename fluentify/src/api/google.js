@@ -1,9 +1,9 @@
 // API info
-const apiUrl = import.meta.env.VITE_GOOGLE_URL;
-const apiKey = import.meta.env.VITE_GOOGLE_KEY;
+const apiUrl = process.env.VITE_GOOGLE_URL;
+const apiKey = process.env.VITE_GOOGLE_KEY;
 
 // The function to translate given text
-export async function translate(text, target) {
+async function translate(text, target) {
     const data = {
         "q": text,
         "target": target
@@ -40,3 +40,5 @@ export async function translate(text, target) {
         throw error;
     }
 }
+
+module.exports = { translate };
