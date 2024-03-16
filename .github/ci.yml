@@ -51,7 +51,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Run build
         run: |
-          yarn build
+          npm start
         
   build:
     runs-on: ubuntu-latest
@@ -68,7 +68,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Run build
         run: |
-          yarn build
+          npm start
 
 
   
