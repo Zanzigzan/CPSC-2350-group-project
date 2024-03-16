@@ -1,7 +1,10 @@
+# CI/CD workflow for testing, building, and deploying
+# triggered automatically on push to main branch, pull request to main branch, or manually by a user
+# overview: catch common errors, check for types mismatch, run unit tests -> build -> and deploy to Netlify
+# job dependencies: build depends on unit-test, deploy depends on build
 
-name: CI
+name: CICD
 
-# Controls when the workflow will run
 on:
   push:
     branches: [ "main" ]
@@ -11,7 +14,7 @@ on:
   
 
 jobs:
-  lint: #id of the job
+  lint: 
     runs-on: ubuntu-latest 
     strategy:
       matrix:
@@ -129,7 +132,7 @@ jobs:
           enable-commit-comment: true
           overwrites-pull-request-comment: true
         env:
-          NETLIFY_AUTH_TOKEN: nfp_69NJsP72wxzg4MEdgG4Wus3WJBHDBz1c74e3 #KEEP THIS SECRET
+          NETLIFY_AUTH_TOKEN: nfp_69NJsP72wxzg4MEdgG4Wus3WJBHDBz1c74e3 #UNIQUE TOKEN. KEEP PRIVATE!
           NETLIFY_SITE_ID: 47d3c9b0-1398-4aee-a266-f4ae6a4c95de #NETLIFY SITE ID
         timeout-minutes: 1
       
