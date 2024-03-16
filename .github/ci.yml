@@ -46,7 +46,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Run test
         run: |
-          yarn test
+          npm run test
         with:
           node-version: ${{ matrix.node }}
       - name: Run build
