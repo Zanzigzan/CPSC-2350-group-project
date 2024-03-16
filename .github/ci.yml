@@ -1,74 +1,128 @@
-# This is a basic workflow to help you get started with Actions
-# type-check and unit-test jobs run in parallel 
-# build job "needs" these 2 jobs to be successful to start
 
 name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  
 
 jobs:
+  lint: #id of the job
+    runs-on: ubuntu-latest 
+    strategy:
+      matrix:
+        node: [12.x, 14.x, 16.x, 18.x, 20.x]
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install Dependencies
+        run: |
+          npm ci
+      - name: Run lint 
+        run: |
+          npm run lint 
+      - name: Run prettier
+        run: |
+          npm run format
+
   type-check:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12]
+        node: [12.x, 14.x, 16.x, 18.x, 20.x]
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - name: Check types
+      - name: Install Dependencies
         run: |
-          yarn type-check
+          npm ci
+      - name: Type check 
+        run: |
+          npm run type-check
+        with:
+          node-version: ${{ matrix.node }}
+
   
   unit-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12]
+        node: [12.x, 14.x, 16.x, 18.x, 20.x]
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - name: Run test
+      - name: Install Dependencies
+        run: |
+          npm ci
+      - name: Run test 
         run: |
           npm run test
         with:
           node-version: ${{ matrix.node }}
-      - name: Run build
-        run: |
-          npm start
         
   build:
+    needs: [unit-test]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12]
-    needs: [type-check, unit-test]
+        node: [12.x, 14.x, 16.x, 18.x, 20.x]
+    
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+      - name: Install Dependencies
+        run: |
+          npm ci
       - name: Run build
         run: |
           npm start
+
+  deploy:
+    publish-gpr:
+      needs: [build]
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node: [12.x, 14.x, 16.x, 18.x, 20.x]
+      permissions:
+        contents: read
+        packages: write
+      steps:
+        - name: Checkout Commit
+          uses: actions/checkout@v4
+        - name: Setup Node.js with Custom Registry
+          uses: actions/setup-node@v4
+          with:
+            node-version: ${{ matrix.node }}
+            registry-url: https://npm.pkg.github.com/
+        - name: Install Dependencies
+          run: |
+            npm ci
+        - name: Publish package to GitHub Package Registry
+          run: |
+            npm publish
+          env:
+            NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 
   
