@@ -94,7 +94,7 @@ jobs:
           npm ci
       - name: Run build
         run: |
-          npm start
+          npm run build
 
   deploy:
     needs: [build]
@@ -108,19 +108,32 @@ jobs:
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
-      - name: Setup Node.js with Custom Registry
+      - name: Setup Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          registry-url: https://npm.pkg.github.com/
       - name: Install Dependencies
         run: |
           npm ci
-      - name: Publish package to GitHub Package Registry
+      - name: Run build
         run: |
-          npm publish
+          npm run build
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: './dist'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NETLIFY_AUTH_TOKEN: nfp_69NJsP72wxzg4MEdgG4Wus3WJBHDBz1c74e3 #KEEP THIS SECRET
+          NETLIFY_SITE_ID: 47d3c9b0-1398-4aee-a266-f4ae6a4c95de #NETLIFY SITE ID
+        timeout-minutes: 1
+      
+  
 
 
   
