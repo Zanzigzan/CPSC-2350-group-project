@@ -1,10 +1,12 @@
+
 import React from 'react';
-import './index.css'
 import GenerateText from './components/GenerateText';
 import SelectFile from './components/SelectFile';
 import Or from './components/Or';
 import Logo from './components/Logo';
 import MainHeader from './components/MainHeader';
+import './index.css'
+
 
 function App() {
 
