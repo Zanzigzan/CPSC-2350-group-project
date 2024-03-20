@@ -7,6 +7,7 @@ import Logo from './components/Logo';
 import MainHeader from './components/MainHeader';
 import './index.css'
 import MainPageModal from './components/MainPageModal';
+import QuizDisplay from './components/QuizDisplay';
 
 
 function App() {
@@ -25,9 +26,7 @@ function App() {
         </div>
           
       <div className='mt-6 mb-20 flex items-center justify-center gap-28'>
-          <SelectFile setIsOpen={setIsOpen} setError={setError} />
-          <Or/>
-          <GenerateText setIsOpen={setIsOpen} />
+          <QuizDisplay />
       </div>
       <MainPageModal isOpen={isOpen} setIsOpen={setIsOpen} error={error} setError={setError} />
 
