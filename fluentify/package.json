@@ -31,8 +31,5 @@
     "lint": "^0.8.19",
     "prettier": "3.2.5",
     "vite": "^5.1.4"
-  },
-  "jest": {
-    "preset": "react"
   }
 }
