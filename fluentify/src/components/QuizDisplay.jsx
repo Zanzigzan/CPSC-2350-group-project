@@ -3,11 +3,14 @@ import React, {useState} from 'react'
 export default function QuizDisplay(props) {
     const [questionNum, setQuestionNum] = useState(1);
     const [question, setQuestion] = useState('Lorem ipsum dolor sit amet consectetur?');
+    const [loading, setLoading] = useState(true);
+    const [curQuestion, setCurQuestion] = useState();
     const [toggle, setToggle] = useState(false);
     const [select, setSelect] = useState(false);
 
     function handleNext() {
         setQuestionNum(questionNum + 1);
+        setCurQuestion(getQuestion());
         setSelect(false);
         setToggle(false);
     }
@@ -17,6 +20,18 @@ export default function QuizDisplay(props) {
             setSelect(true);
             setToggle(true);
         }
+    }
+
+    // temp function
+    function getQuestion() {
+        return {
+            thisQuestion: "Lorem ipsum dolor sit amet consectetur?",
+            optiona: "A. Lorem",
+            optionb: "B. Ipsum",
+            optionb: "C. Dolor",
+            optionb: "D. Sit",
+            answer: "C. Dolor"
+        };
     }
 
     return (
