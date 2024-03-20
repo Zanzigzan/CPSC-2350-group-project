@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 
 export default function QuizDisplay(props) {
     const [questionNum, setQuestionNum] = useState(1);
-    const [question, setQuestion] = useState('Lorem ipsum dolor sit amet consectetur?');
     const [loading, setLoading] = useState(true);
     const [curQuestion, setCurQuestion] = useState({});
     const [toggle, setToggle] = useState(false);
@@ -16,7 +15,7 @@ export default function QuizDisplay(props) {
           setLoading(false);
         }, 1000);
         console.log("loaded");
-        console.log(curQuestion.thisQuestion);
+        console.log(curQuestion.question);
     
         return () => clearTimeout(timer);
       }, []);
@@ -40,7 +39,7 @@ export default function QuizDisplay(props) {
     // temp function
     function getQuestion() {
         return {
-            thisQuestion: "Lorem ipsum dolor sit amet consectetur?",
+            question: "Lorem ipsum dolor sit amet consectetur?",
             optiona: "A. Lorem",
             optionb: "B. Ipsum",
             optionc: "C. Dolor",
@@ -57,12 +56,12 @@ export default function QuizDisplay(props) {
                 ( 
                 <div>
                 <h1 className='font-bold text-lg'>Question {questionNum}</h1>
-                <h1 className='text-3xl'>{question}</h1>
+                <h1 className='text-3xl'>{curQuestion.question}</h1>
                 <div className='grid grid-cols-2 gap-1'>
-                    <button className={`bg-white ${select ? '' : 'hover:bg-blue-200'} text-blue-400 font-bold text-lg p-2 rounded`} onClick={handleSelect}>A. Lorem</button>
-                    <button className={`bg-white ${select ? '' : 'hover:bg-blue-200'} text-blue-400 font-bold text-lg p-2 rounded`} onClick={handleSelect}>B. Ipsum</button>
-                    <button className={`bg-white ${select ? '' : 'hover:bg-blue-200'} text-blue-400 font-bold text-lg p-2 rounded`} onClick={handleSelect}>C. Dolor</button>
-                    <button className={`bg-white ${select ? '' : 'hover:bg-blue-200'} text-blue-400 font-bold text-lg p-2 rounded`} onClick={handleSelect}>D. Sit</button>
+                    <button className={`bg-white ${select ? '' : 'hover:bg-blue-200'} text-blue-400 font-bold text-lg p-2 rounded`} onClick={handleSelect}>{curQuestion.optiona}</button>
+                    <button className={`bg-white ${select ? '' : 'hover:bg-blue-200'} text-blue-400 font-bold text-lg p-2 rounded`} onClick={handleSelect}>{curQuestion.optionb}</button>
+                    <button className={`bg-white ${select ? '' : 'hover:bg-blue-200'} text-blue-400 font-bold text-lg p-2 rounded`} onClick={handleSelect}>{curQuestion.optionc}</button>
+                    <button className={`bg-white ${select ? '' : 'hover:bg-blue-200'} text-blue-400 font-bold text-lg p-2 rounded`} onClick={handleSelect}>{curQuestion.optiond}</button>
                 </div>
                 <button className={`bg-white hover:bg-blue-200 text-blue-400 font-bold text-lg p-2 rounded ${toggle ? 'visible' : 'invisible'}`} onClick={handleNext}>Next</button> 
                 </div>
