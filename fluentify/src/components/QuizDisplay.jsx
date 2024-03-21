@@ -2,32 +2,26 @@ import React, {useState, useEffect} from 'react'
 
 export default function QuizDisplay(props) {
     const [questionNum, setQuestionNum] = useState(1);
-    const [loading, setLoading] = useState(true);
     const [curQuestion, setCurQuestion] = useState({});
+
+    const [loading, setLoading] = useState(true);
+
     const [toggle, setToggle] = useState(false);
     const [select, setSelect] = useState(false);
+
     const [selectColor, setSelectColor] = useState('bg-green-400');
 
     useEffect(() => {
-        console.log('loading');
-        const temp = getQuestion();
-        setCurQuestion(temp);
-        const timer = setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-        console.log("loaded");
-        console.log(curQuestion.question);
-    
-        return () => clearTimeout(timer);
+        setQuestion();
       }, []);
 
     function handleNext() {
         setQuestionNum(questionNum + 1);
-        setLoading(true);
-        setCurQuestion(getQuestion());
-        setLoading(false);
+
         setSelect(false);
         setToggle(false);
+
+        setQuestion();
     }
 
     function handleSelect(id) {
@@ -50,10 +44,20 @@ export default function QuizDisplay(props) {
         }
     }
 
+    async function setQuestion() {
+        setLoading(true);
+        const question = await getQuestion();
+        setCurQuestion(question);
+        setLoading(false);
+    }
+
     // temp function
-    function getQuestion() {
+    async function getQuestion() {
         const options = ["A. Lorem","B. Ipsum","C. Dolor","D. Sit"];
         const index = Math.floor(Math.random() * 4);
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
         return {
             question: `The answer is ${options[index]}`,
             optiona: options[0],
