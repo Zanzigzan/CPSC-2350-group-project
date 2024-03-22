@@ -12,6 +12,7 @@ import MainPageModal from './components/MainPageModal';
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   return (
     <container className='ml-auto mr-auto mr-container text-center w-4/5 p-4 rounded flex flex-col'>
@@ -25,7 +26,7 @@ function App() {
         </div>
           
       <div className='mt-6 mb-20 flex items-center justify-center gap-28'>
-          <SelectFile setIsOpen={setIsOpen} setError={setError} />
+          <SelectFile setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} />
           <Or/>
           <GenerateText setIsOpen={setIsOpen} />
       </div>
