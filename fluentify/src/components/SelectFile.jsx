@@ -31,7 +31,7 @@ const SelectFile = (props) => {
                 <input type='file' class="hidden" onChange={handleFileChange} />
             </label>
         </div>
-        <div className='border-2 text-left'>filename.txt</div>
+        <div className='px-2 border-2 border-black rounded text-left text-blue-400'>filename.txt</div>
         <button class="bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 pl-6 pr-6 rounded-full" onClick={handleSubmit}>
             Submit
         </button>
