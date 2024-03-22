@@ -7,7 +7,7 @@ const GenerateText = (props) => {
   }
 
   return (
-    <div className='justify-center space-y-12'>
+    <div className='h-96 space-y-14 p-4'>
       <div className='text-3xl font-medium leading-tight'>
         Generate Text
       </div>
@@ -17,8 +17,7 @@ const GenerateText = (props) => {
         <button className='bg-yellow-400 hover:bg-yellow-700 text-white text-lg  font-bold py-2 px-4 rounded' onClick={handleClick}>Average</button>
         <button className='bg-red-400 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded' onClick={handleClick}>Hard</button>
       </div> 
-
-  </div>
+    </div>
   )
 }
 
