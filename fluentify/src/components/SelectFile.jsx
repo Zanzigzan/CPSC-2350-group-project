@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
+import { getTextFromFile } from '../api/getTextFromFile';
+import { useLanguage } from '../context/LanguageContext';
 
 const SelectFile = (props) => {
-    const [selectedFile, setSelectedFile] = useState();
+    const [selectedFile, setSelectedFile] = useState('');
+    const { setText } = useLanguage();
 
     function handleFileChange(e) {
         const file = e.target.files[0];
@@ -16,9 +19,26 @@ const SelectFile = (props) => {
     function handleSubmit() {
         if (!selectedFile) {
             props.setError("Please select a file.");
+            props.setIsOpen(true);
+        } else {
+            setTextContext();
         }
-        setSelectedFile(null);
-        props.setIsOpen(true);
+    }
+
+    async function setTextContext() {
+        props.setLoading(true);
+
+        getTextFromFile(selectedFile)
+            .then((readText) => {
+                setText(readText);
+            })
+            .catch((e) => {
+                props.setError(e.message);
+            }).finally(() => {
+                setSelectedFile(null);
+                props.setIsOpen(true);
+                props.setLoading(false);
+            });
     }
 
   return (
