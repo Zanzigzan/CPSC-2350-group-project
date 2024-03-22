@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useLanguage } from '../context/LanguageContext';
+import { Link } from 'react-router-dom';
 
 export default function MainPageModal(props) {
     const langList = ['EN', 'DE', 'JP', 'FR']; // TODO
@@ -46,7 +47,10 @@ export default function MainPageModal(props) {
                                     </select>
                                 </div>
                                 <div className='flex justify-center space-x-9'>
-                                    <button className='bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 rounded' onClick={handleConfirm}>Confirm</button>
+                                    <Link to='/second-page'>
+                                        <button className='bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 rounded' onClick={handleConfirm}>Confirm</button>
+                                    </Link>
+                                    
                                     <button className='bg-gray-500 hover:bg-gray-800 text-white text-lg font-bold py-2 px-4 rounded' onClick={handleClose}>Back</button>
                                 </div>
                             </div>
