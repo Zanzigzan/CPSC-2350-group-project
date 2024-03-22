@@ -10,6 +10,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App/>,
+    errorElement: <div>404 not Found</div>
   },
   {
     path:'/second-page',
