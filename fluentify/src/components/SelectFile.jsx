@@ -42,7 +42,7 @@ const SelectFile = (props) => {
     }
 
   return (
-    <div className='h-96 space-y-6 p-4'>
+    <div className='h-96 space-y-12 p-4'>
         <div className='mb-2 mt-0 text-3xl font-medium leading-tight text-primary'>
             Select Your Own Text
         </div>
@@ -52,7 +52,7 @@ const SelectFile = (props) => {
                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                 </svg>
                 <span className="mt-2 text-lg leading-normal">{showFileName()}</span>
-                <input type='file' class="hidden" onChange={handleFileChange}/>
+                <input type='file' class="hidden" onChange={handleFileChange} accept='.txt'/>
             </label>
         </div> 
         <button class="bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 px-4 pl-6 pr-6 rounded-full" onClick={handleSubmit}>
