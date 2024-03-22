@@ -25,7 +25,7 @@ function App() {
             <MainHeader/>
         </div>
           
-      <div className='mt-6 mb-20 flex items-center justify-center gap-28'>
+      <div className='flex flex-row mt-6 mb-20 items-center justify-center gap-28'>
           <SelectFile setIsOpen={setIsOpen} setError={setError} />
           <Or/>
           <GenerateText setIsOpen={setIsOpen} />
