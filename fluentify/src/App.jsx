@@ -9,6 +9,7 @@ import './index.css'
 import MainPageModal from './components/MainPageModal';
 
 
+
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState('');
