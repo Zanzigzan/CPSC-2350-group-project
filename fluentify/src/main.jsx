@@ -5,15 +5,18 @@ import App from './App.jsx'
 import './index.css'
 import { LanguageProvider } from './context/LanguageContext.jsx'
 import SecondPage from './SecondPage.jsx'
+import NotFoundPage from './components/NotFoundPage.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App/>,
+    errorElement: <NotFoundPage/>,
   },
   {
     path:'/second-page',
     element: <SecondPage/>,
+    errorElement: <NotFoundPage/>,
   },
 
 ]);
