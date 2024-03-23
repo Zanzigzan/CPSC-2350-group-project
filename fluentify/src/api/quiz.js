@@ -13,4 +13,14 @@ async function generateQuiz(text, detectedSourceLanguage) {
                 "content": `OPENAI_GENERATE_QUIZ_PROMPT "${text}"`
             }]
     }
+
+    // Request options
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${OPENAI_KEY}`
+        },
+        body: JSON.stringify(data)
+    };
 }
