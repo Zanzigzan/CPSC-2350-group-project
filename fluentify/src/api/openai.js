@@ -56,7 +56,7 @@ async function generateText(difficulty) {
         }
     } catch (error) {
         console.error('Error:', error);
-        return `Error: ${error.message}`;
+        throw error;
     }
 }
 

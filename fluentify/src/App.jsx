@@ -28,9 +28,8 @@ function App() {
           
       <div className='flex flex-row mt-6 mb-20 items-center justify-center gap-28'>
           <SelectFile setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} />
-    
           <Or/>
-          <GenerateText setIsOpen={setIsOpen} />
+          <GenerateText setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} />
       </div>
       <MainPageModal isOpen={isOpen} setIsOpen={setIsOpen} error={error} setError={setError} />
 
