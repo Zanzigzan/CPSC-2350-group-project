@@ -54,10 +54,6 @@ jobs:
       - name: Type check 
         run: |
           npm run type-check
-        with:
-          node-version: ${{ matrix.node }}
-
-  
   unit-test:
     runs-on: ubuntu-latest
     strategy:
@@ -76,8 +72,6 @@ jobs:
       - name: Run test 
         run: |
           npm run test
-        with:
-          node-version: ${{ matrix.node }}
         
   build:
     needs: [unit-test]
