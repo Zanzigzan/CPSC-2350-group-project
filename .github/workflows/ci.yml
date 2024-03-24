@@ -7,21 +7,22 @@ name: CICD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
-  
 
 jobs:
-  lint: 
-    runs-on: ubuntu-latest 
+  lint:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [12.x, 14.x, 16.x, 18.x, 20.x]
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
+      - name: Change to the directory containing package.json
+        run: cd fluentify
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -29,9 +30,9 @@ jobs:
       - name: Install Dependencies
         run: |
           npm ci
-      - name: Run lint 
+      - name: Run lint
         run: |
-          npm run lint 
+          npm run lint
       - name: Run prettier
         run: |
           npm run format
@@ -51,13 +52,9 @@ jobs:
       - name: Install Dependencies
         run: |
           npm ci
-      - name: Type check 
+      - name: Type check
         run: |
           npm run type-check
-        with:
-          node-version: ${{ matrix.node }}
-
-  
   unit-test:
     runs-on: ubuntu-latest
     strategy:
@@ -66,6 +63,7 @@ jobs:
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -73,12 +71,10 @@ jobs:
       - name: Install Dependencies
         run: |
           npm ci
-      - name: Run test 
+      - name: Run test
         run: |
           npm run test
-        with:
-          node-version: ${{ matrix.node }}
-        
+
   build:
     needs: [unit-test]
     runs-on: ubuntu-latest
@@ -88,6 +84,7 @@ jobs:
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -124,7 +121,7 @@ jobs:
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
-          publish-dir: './dist'
+          publish-dir: "./dist"
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
@@ -135,9 +132,3 @@ jobs:
           NETLIFY_AUTH_TOKEN: nfp_69NJsP72wxzg4MEdgG4Wus3WJBHDBz1c74e3 #UNIQUE TOKEN. KEEP PRIVATE!
           NETLIFY_SITE_ID: 47d3c9b0-1398-4aee-a266-f4ae6a4c95de #NETLIFY SITE ID
         timeout-minutes: 1
-      
-  
-
-
-  
-  
