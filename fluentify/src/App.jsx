@@ -7,6 +7,7 @@ import Logo from './components/Logo';
 import MainHeader from './components/MainHeader';
 import './index.css'
 import MainPageModal from './components/MainPageModal';
+import InstructionModal from './components/InstructionModal';
 
 
 
@@ -25,14 +26,15 @@ function App() {
         <div className='mt-4 mb-6'>
             <MainHeader/>
         </div>
+        
           
       <div className='flex flex-row mt-6 mb-20 justify-center gap-28'>
           <SelectFile setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} />
-    
           <Or/>
           <GenerateText setIsOpen={setIsOpen} />
       </div>
       <MainPageModal isOpen={isOpen} setIsOpen={setIsOpen} error={error} setError={setError} />
+      <InstructionModal/>
 
     </container>
   )
