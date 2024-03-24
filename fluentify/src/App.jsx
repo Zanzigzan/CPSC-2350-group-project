@@ -36,7 +36,7 @@ function App() {
           <GenerateText setIsOpen={setIsOpen} />
       </div>
       <MainPageModal isOpen={isOpen} setIsOpen={setIsOpen} error={error} setError={setError} />
-      <InstructionModal showModal={showModal} setShowModal={setShowModal}/>
+      <InstructionModal showModal={showModal} setShowModal={setShowModal} onClose={setShowModal}/>
 
     </container>
   )
