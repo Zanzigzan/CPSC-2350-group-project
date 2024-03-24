@@ -7,6 +7,7 @@ import Logo from './components/Logo';
 import MainHeader from './components/MainHeader';
 import './index.css'
 import MainPageModal from './components/MainPageModal';
+import InstructionModal from './components/InstructionModal';
 
 
 
@@ -14,6 +15,8 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
 
   return (
     <container className='ml-auto mr-auto mr-container text-center w-4/5 p-4 rounded flex flex-col'>
@@ -23,15 +26,17 @@ function App() {
         </div>
 
         <div className='mt-4 mb-6'>
-            <MainHeader/>
+            <MainHeader setShowModal={setShowModal}/>
         </div>
+        
           
-      <div className='flex flex-row mt-6 mb-20 items-center justify-center gap-28'>
+      <div className='flex flex-row mt-6 mb-20 justify-center gap-28'>
           <SelectFile setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} />
           <Or/>
           <GenerateText setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} />
       </div>
       <MainPageModal isOpen={isOpen} setIsOpen={setIsOpen} error={error} setError={setError} />
+      <InstructionModal showModal={showModal} setShowModal={setShowModal} onClose={setShowModal}/>
 
     </container>
   )
