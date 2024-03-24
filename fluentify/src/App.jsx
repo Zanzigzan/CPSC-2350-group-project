@@ -15,6 +15,8 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
 
   return (
     <container className='ml-auto mr-auto mr-container text-center w-4/5 p-4 rounded flex flex-col'>
@@ -24,7 +26,7 @@ function App() {
         </div>
 
         <div className='mt-4 mb-6'>
-            <MainHeader/>
+            <MainHeader setShowModal={setShowModal}/>
         </div>
         
           
@@ -34,7 +36,7 @@ function App() {
           <GenerateText setIsOpen={setIsOpen} />
       </div>
       <MainPageModal isOpen={isOpen} setIsOpen={setIsOpen} error={error} setError={setError} />
-      <InstructionModal/>
+      <InstructionModal showModal={showModal} setShowModal={setShowModal}/>
 
     </container>
   )
