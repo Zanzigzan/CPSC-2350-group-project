@@ -10,6 +10,7 @@ export function LanguageProvider(props) {
     const [language, setLanguage] = useState();
     const [text, setText] = useState('');
     const [translatedText, setTranslatedText] = useState('');
+    const [sourceLanguage, setSourceLanguage] = useState('');
 
     const value = {
         language, 
@@ -17,7 +18,9 @@ export function LanguageProvider(props) {
         text,
         setText,
         translatedText,
-        setTranslatedText
+        setTranslatedText,
+        sourceLanguage,
+        setSourceLanguage
     }
 
     return (<LanguageContext.Provider value={value}>{props.children}</LanguageContext.Provider>)
