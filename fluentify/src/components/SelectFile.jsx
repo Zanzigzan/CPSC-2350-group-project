@@ -46,16 +46,16 @@ const SelectFile = (props) => {
         <div className='text-3xl font-medium'>
             Select Your Own Text
         </div>
-        <div class="items-center justify-center bg-grey-lighter">
-            <label class="h-40 flex flex-col items-center justify-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-500 hover:text-white">
-                <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+        <div className="items-center justify-center bg-grey-lighter">
+            <label className="h-40 flex flex-col items-center justify-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-500 hover:text-white">
+                <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                 </svg>
                 <span className="mt-2 text-lg leading-normal">{showFileName()}</span>
-                <input type='file' class="hidden" onChange={handleFileChange} accept='.txt'/>
+                <input type='file' className="hidden" onChange={handleFileChange} accept='.txt'/>
             </label>
         </div> 
-        <button class="bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full" onClick={handleSubmit}>
+        <button className="bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full" onClick={handleSubmit}>
             Submit
         </button>
         

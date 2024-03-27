@@ -8,8 +8,8 @@ const Or = () => {
         <div className='h-36 border-r-2 border-blue-400'></div>
         <div className='h-36 border-l-2 border-blue-400'></div>
       </div>
-      <div class="flex items-center justify-center h-20 w-20 rounded-full bg-blue-400">
-        <span class="text-white font-bold text-3xl"> 
+      <div className="flex items-center justify-center h-20 w-20 rounded-full bg-blue-400">
+        <span className="text-white font-bold text-3xl"> 
           OR
         </span>
       </div> 
