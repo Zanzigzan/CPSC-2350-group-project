@@ -42,7 +42,7 @@ const SelectFile = (props) => {
     }
 
   return (
-    <div className='w-2/6 h-96 space-y-10 p-4'>
+    <div className='w-2/6 h-96 space-y-8 p-4'>
         <div className='text-3xl font-medium'>
             Select Your Own Text
         </div>
