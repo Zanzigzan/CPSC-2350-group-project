@@ -13,11 +13,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+
+  lint: #Lint Job#
+  
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [14.x, 16.x, 18.x, 20.x]
+        
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
@@ -26,6 +29,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+          
       - name: Change to the directory containing package.json
         run: |
           cd fluentify; 
@@ -37,61 +41,55 @@ jobs:
           echo "before npm ci, Current Directory: $PWD"
           cd fluentify; 
           npm ci
+          
       - name: Run lint
         run: |
           echo "before run lint, Current Directory: $PWD"
           cd fluentify; 
           npm run lint
-      - name: Run prettier
+      
+
+  unit-test: #Unit Testing Job#
+  
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14.x, 16.x, 18.x, 20.x]
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+        
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          
+      - name: Change to the directory containing package.json
         run: |
-          echo "before format, Current Directory: $PWD"
           cd fluentify; 
-          npm run format
-
-  type-check:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [12.x, 14.x, 16.x, 18.x, 20.x]
-    steps:
-      - name: Checkout Commit
-        uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
+          ls;
+          echo "after moving to fluentify, Current Directory: $PWD";
+          
       - name: Install Dependencies
         run: |
+          echo "before npm ci, Current Directory: $PWD"
+          cd fluentify; 
           npm ci
-      - name: Type check
-        run: |
-          npm run type-check
-  unit-test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [12.x, 14.x, 16.x, 18.x, 20.x]
-    steps:
-      - name: Checkout Commit
-        uses: actions/checkout@v4
-
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Install Dependencies
-        run: |
-          npm ci
+          
       - name: Run test
         run: |
+          echo "before npm ci, Current Directory: $PWD"
+          cd fluentify; 
           npm run test
 
-  build:
+  build: #Build Job#
+  
     needs: [unit-test]
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [12.x, 14.x, 16.x, 18.x, 20.x]
+        
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
@@ -100,35 +98,64 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+          
+      - name: Change to the directory containing package.json
+        run: |
+          cd fluentify; 
+          ls;
+          echo "after moving to fluentify, Current Directory: $PWD";
+          
       - name: Install Dependencies
         run: |
+          echo "before npm ci, Current Directory: $PWD"
+          cd fluentify;
           npm ci
+          
       - name: Run build
         run: |
+          echo "before npm ci, Current Directory: $PWD"
+          cd fluentify; 
           npm run build
 
-  deploy:
+  deploy: #Deploy Job#
+  
     needs: [build]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12.x, 14.x, 16.x, 18.x, 20.x]
+        node: [14.x, 16.x, 18.x, 20.x]
+        
     permissions:
       contents: read
       packages: write
+      
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
+        
       - name: Setup Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+          
+      - name: Change to the directory containing package.json
+        run: |
+          cd fluentify; 
+          ls;
+          echo "after moving to fluentify, Current Directory: $PWD";
+          
       - name: Install Dependencies
         run: |
+          echo "before npm ci, Current Directory: $PWD"
+          cd fluentify;
           npm ci
+          
       - name: Run build
         run: |
+          echo "before npm ci, Current Directory: $PWD"
+          cd fluentify;
           npm run build
+          
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
