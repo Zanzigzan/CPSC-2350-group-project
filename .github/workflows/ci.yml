@@ -22,16 +22,15 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v4
 
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
       - name: Change to the directory containing package.json
         run: |
           cd fluentify; 
           ls;
           echo "after moving to fluentify, Current Directory: $PWD";
-
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
 
       - name: Install Dependencies
         run: |
