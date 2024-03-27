@@ -1,0 +1,28 @@
+name: Lint
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  lint: #Lint Job#
+  
+    runs-on: ubuntu-latest
+        
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+      - name: Run lint
+        run: | #navigate to fluentify, install dependencies, then run lint#
+          cd fluentify;
+          ls;
+          echo "Current Directory: $PWD";
+
+          npm ci;
+          npm run lint;
