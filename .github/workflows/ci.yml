@@ -24,6 +24,7 @@ jobs:
 
       - name: Change to the directory containing package.json
         run: |
+          ls
           echo "before moving, Current Directory: $PWD"
           cd ..; 
           echo "move 1 up, Current Directory: $PWD"
