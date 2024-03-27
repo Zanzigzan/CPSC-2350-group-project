@@ -28,6 +28,11 @@ jobs:
           cd ..; 
           echo "move 1 up, Current Directory: $PWD"
           ls;
+          cd ..; 
+          echo "move 1 up, Current Directory: $PWD"
+          ls;
+          cd fluentify; 
+          ls;
           echo "after moving to fluentify, Current Directory: $PWD";
 
       - name: Use Node.js ${{ matrix.node }}
