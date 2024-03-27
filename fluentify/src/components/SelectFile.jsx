@@ -42,7 +42,7 @@ const SelectFile = (props) => {
     }
 
   return (
-    <div className='w-2/6 h-96 space-y-12 p-4'>
+    <div className='w-2/6 h-96 space-y-8 p-4'>
         <div className='text-3xl font-medium'>
             Select Your Own Text
         </div>
@@ -54,7 +54,9 @@ const SelectFile = (props) => {
                 <span className="mt-2 text-lg leading-normal">{showFileName()}</span>
                 <input type='file' className="hidden" onChange={handleFileChange} accept='.txt'/>
             </label>
+            <div className='mt-2 text-blue-400'>Please upload file in the .txt format</div>
         </div> 
+        
         <button className="bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full" onClick={handleSubmit}>
             Submit
         </button>

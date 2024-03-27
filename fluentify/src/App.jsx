@@ -19,7 +19,7 @@ function App() {
 
 
   return (
-    <div className='ml-auto mr-auto mr-container text-center w-4/5 p-4 rounded flex flex-col'>
+    <div className='ml-auto mr-auto mr-container text-center w-4/5 h-screen p-4 rounded flex flex-col'>
 
         <div className='mt-2'>
             <Logo/>
