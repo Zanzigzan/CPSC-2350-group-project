@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12.x, 14.x, 16.x, 18.x, 20.x]
+        node: [14.x, 16.x, 18.x, 20.x]
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
@@ -60,17 +60,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+      - name: Change to the directory containing package.json
+        run: |
+          cd fluentify; 
+          ls;
+          echo "after moving to fluentify, Current Directory: $PWD";
       - name: Install Dependencies
         run: |
+          echo "before npm ci, Current Directory: $PWD"
+          cd fluentify; 
           npm ci
       - name: Type check
         run: |
+          echo "before npm ci, Current Directory: $PWD"
+          cd fluentify; 
           npm run type-check
+
   unit-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12.x, 14.x, 16.x, 18.x, 20.x]
+        node: [14.x, 16.x, 18.x, 20.x]
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
@@ -112,7 +122,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12.x, 14.x, 16.x, 18.x, 20.x]
+        node: [14.x, 16.x, 18.x, 20.x]
     permissions:
       contents: read
       packages: write
