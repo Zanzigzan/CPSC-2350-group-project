@@ -25,10 +25,8 @@ jobs:
       - name: Change to the directory containing package.json
         run: |
           echo "before moving, Current Directory: $PWD"
-          ls
           cd ../fluentify 
           ls
-          cd ../../fluentify 
           echo "after moving to fluentify, Current Directory: $PWD"
 
       - name: Use Node.js ${{ matrix.node }}
