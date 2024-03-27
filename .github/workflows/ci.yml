@@ -17,30 +17,35 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [12.x, 14.x, 16.x, 18.x, 20.x]
+        node: [14.x, 16.x, 18.x, 20.x]
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
-
-      - name: Change to the directory containing package.json
-        run: cd ./fluentify
 
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+      - name: Change to the directory containing package.json
+        run: |
+          cd fluentify; 
+          ls;
+          echo "after moving to fluentify, Current Directory: $PWD";
 
       - name: Install Dependencies
         run: |
           echo "before npm ci, Current Directory: $PWD"
+          cd fluentify; 
           npm ci
       - name: Run lint
         run: |
           echo "before run lint, Current Directory: $PWD"
+          cd fluentify; 
           npm run lint
       - name: Run prettier
         run: |
           echo "before format, Current Directory: $PWD"
+          cd fluentify; 
           npm run format
 
   type-check:
