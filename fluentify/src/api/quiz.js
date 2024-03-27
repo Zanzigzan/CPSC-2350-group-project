@@ -11,8 +11,18 @@ const VITE_OPENAI_GENERATE_QUIZ_PROMPT = import.meta.env.VITE_OPENAI_GENERATE_QU
 
 // console.log("OpenAI Prompt:", VITE_OPENAI_GENERATE_QUIZ_PROMPT);
 
-
 export async function generateQuiz(text, detectedSourceLanguage) {
+    try {
+        const words = generateArrayOfWordsForQuiz(text);
+        
+        return words;
+    } catch (error) {
+        console.error('Error:', error);
+        throw (error instanceof Error) ? error : new Error(error);
+    }
+}
+
+async function generateArrayOfWordsForQuiz(text) {
     // Body
     const data = {
         "model": "gpt-3.5-turbo",
