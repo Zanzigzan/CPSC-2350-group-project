@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v4
       - name: Change to the directory containing package.json
-        run: cd fluentify
+        run: cd ./fluentify
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
