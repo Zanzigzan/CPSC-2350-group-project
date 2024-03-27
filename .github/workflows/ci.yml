@@ -31,12 +31,16 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Install Dependencies
-        run: npm ci
+        run: |
+          echo "before npm ci, Current Directory: $PWD"
+          npm ci
       - name: Run lint
         run: |
+          echo "before run lint, Current Directory: $PWD"
           npm run lint
       - name: Run prettier
         run: |
+          echo "before format, Current Directory: $PWD"
           npm run format
 
   type-check:
