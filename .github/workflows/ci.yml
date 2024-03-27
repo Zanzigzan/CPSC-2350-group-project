@@ -21,8 +21,7 @@ jobs:
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
-      - name: Change to the directory containing package.json
-        run: cd ./fluentify
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -30,9 +29,11 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
+      - name: Change to the directory containing package.json
+        run: |
+          cd ./fluentify
       - name: Run lint
         run: |
-          cd fluentify
           npm run lint
       - name: Run prettier
         run: |
