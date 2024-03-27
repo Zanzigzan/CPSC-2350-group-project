@@ -37,16 +37,17 @@ jobs:
           echo "before npm ci, Current Directory: $PWD"
           cd fluentify; 
           npm ci
-      - name: Run lint
-        run: |
-          echo "before run lint, Current Directory: $PWD"
-          cd fluentify; 
-          npm run lint
       - name: Run prettier
         run: |
           echo "before format, Current Directory: $PWD"
           cd fluentify; 
           npm run format
+      - name: Run lint
+        run: |
+          echo "before run lint, Current Directory: $PWD"
+          cd fluentify; 
+          npm run lint
+      
 
   unit-test:
     runs-on: ubuntu-latest
