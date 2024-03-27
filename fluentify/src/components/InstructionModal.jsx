@@ -19,7 +19,7 @@ const InstructionModal = (props) => {
                         <div className='text-lg font-bold'>Step2: Choose your target language</div>
                         <div className='text-md mb-2'>Choose the language that you want to learn and click confirm</div>
                         <div className='text-lg font-bold'>Step3: Start the quiz</div>
-                        <div className='text-md mb-2'>Wait for the article and quiz to be loaded, and enjoy the quiz</div>
+                        <div className='text-md mb-2'>Wait for the article and quiz in your target language to be loaded, and enjoy the quiz</div>
                     </div>
                     
                 </div>
