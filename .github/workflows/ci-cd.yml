@@ -97,6 +97,6 @@ jobs:
           enable-commit-comment: true
           overwrites-pull-request-comment: true
         env:
-          NETLIFY_AUTH_TOKEN: nfp_69NJsP72wxzg4MEdgG4Wus3WJBHDBz1c74e3 #UNIQUE TOKEN. KEEP PRIVATE!
-          NETLIFY_SITE_ID: 47d3c9b0-1398-4aee-a266-f4ae6a4c95de #NETLIFY SITE ID
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }} #UNIQUE TOKEN
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }} #NETLIFY SITE ID
 
