@@ -21,20 +21,26 @@ jobs:
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v4
+
       - name: Change to the directory containing package.json
-        run: cd fluentify
+        run: cd ./fluentify
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+
       - name: Install Dependencies
         run: |
+          echo "before npm ci, Current Directory: $PWD"
           npm ci
       - name: Run lint
         run: |
+          echo "before run lint, Current Directory: $PWD"
           npm run lint
       - name: Run prettier
         run: |
+          echo "before format, Current Directory: $PWD"
           npm run format
 
   type-check:
@@ -131,4 +137,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: nfp_69NJsP72wxzg4MEdgG4Wus3WJBHDBz1c74e3 #UNIQUE TOKEN. KEEP PRIVATE!
           NETLIFY_SITE_ID: 47d3c9b0-1398-4aee-a266-f4ae6a4c95de #NETLIFY SITE ID
-        timeout-minutes: 1
+
