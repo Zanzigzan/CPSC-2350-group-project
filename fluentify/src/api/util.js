@@ -7,3 +7,8 @@ export function isValidArrayFormat(content) {
         return false;
     }
 }
+
+// The function selects random element from the array and returns it
+export function selectRandom(array) {
+    return array[(Math.floor(Math.random() * array.length))]
+}

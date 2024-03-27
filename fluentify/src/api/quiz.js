@@ -1,4 +1,4 @@
-import { isValidArrayFormat } from './util.js';
+import { isValidArrayFormat, selectRandom } from './util.js';
 
 // API info
 const VITE_OPENAI_URL = import.meta.env.VITE_OPENAI_URL;
