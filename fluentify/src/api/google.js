@@ -6,7 +6,8 @@ const apiKey = import.meta.env.VITE_GOOGLE_KEY;
 async function translate(text, target) {
     const data = {
         "q": text,
-        "target": target
+        "target": target,
+        "format": "text"
     };
 
     try {

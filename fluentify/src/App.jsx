@@ -19,7 +19,7 @@ function App() {
 
 
   return (
-    <container className='ml-auto mr-auto mr-container text-center w-4/5 p-4 rounded flex flex-col'>
+    <div className='ml-auto mr-auto mr-container text-center w-4/5 p-4 rounded flex flex-col'>
 
         <div className='mt-2'>
             <Logo/>
@@ -38,7 +38,7 @@ function App() {
       <MainPageModal isOpen={isOpen} setIsOpen={setIsOpen} error={error} setError={setError} />
       <InstructionModal showModal={showModal} setShowModal={setShowModal} onClose={setShowModal}/>
 
-    </container>
+    </div>
   )
 }
 
