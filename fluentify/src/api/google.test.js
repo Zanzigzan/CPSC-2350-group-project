@@ -1,4 +1,5 @@
-const { translate } = require('./google.js');
+import { translate } from './google.js';
+import { describe, expect, it } from 'vitest';
 
 global.fetch = jest.fn(() =>
   Promise.resolve(
