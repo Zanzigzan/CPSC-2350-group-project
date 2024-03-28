@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from 'react'
+import { useLanguage } from '../context/LanguageContext';
+import { generateQuiz } from '../api/quiz';
 
-export default function QuizDisplay() {
+export default function QuizDisplay(props) {
+    const {translatedText, sourceLanguage} = useLanguage();
+
     const [questionNum, setQuestionNum] = useState(1);
     const [curQuestion, setCurQuestion] = useState({});
 
@@ -12,15 +16,15 @@ export default function QuizDisplay() {
     const [selectColor, setSelectColor] = useState('bg-green-400');
 
     useEffect(() => {
-        setQuestion();
-      }, []);
+        if (!props.translating && sourceLanguage && translatedText) {
+            setQuestion();
+        } else if (props.translating) {
+            setLoading(props.translating);
+        }
+    }, [props.translating]);
 
     function handleNext() {
         setQuestionNum(questionNum + 1);
-
-        setSelect(false);
-        setToggle(false);
-
         setQuestion();
     }
 
@@ -33,13 +37,13 @@ export default function QuizDisplay() {
         if (!select) {
             setSelect(id);
 
-            if ((id === 'optiona') && (curQuestion.optiona === curQuestion.answer)) {
+            if ((id === 'optiona') && (curQuestion.answer1 === curQuestion.correctAnswer)) {
                 setSelectColor('bg-green-400');
-            } else if ((id === 'optionb') && (curQuestion.optionb === curQuestion.answer)) {
+            } else if ((id === 'optionb') && (curQuestion.answer2 === curQuestion.correctAnswer)) {
                 setSelectColor('bg-green-400');
-            } else if ((id === 'optionc') && (curQuestion.optionc === curQuestion.answer)) {
+            } else if ((id === 'optionc') && (curQuestion.answer3 === curQuestion.correctAnswer)) {
                 setSelectColor('bg-green-400');
-            } else if ((id === 'optiond') && (curQuestion.optiond === curQuestion.answer)) {
+            } else if ((id === 'optiond') && (curQuestion.answer4 === curQuestion.correctAnswer)) {
                 setSelectColor('bg-green-400');
             } else {
                 setSelectColor('bg-red-400');
@@ -52,8 +56,11 @@ export default function QuizDisplay() {
     async function setQuestion() {
         setLoading(true);
 
+        setSelect(false);
+        setToggle(false);
+
         try {
-            const question = await getQuestion();
+            const question = await generateQuiz(translatedText, sourceLanguage);
             setCurQuestion(question);
         } catch (e) {
             setError(e.message);
@@ -101,10 +108,10 @@ export default function QuizDisplay() {
                             <h1 className='font-bold text-lg'>Question {questionNum}</h1>
                             <h1 className='text-3xl'>{curQuestion.question}</h1>
                             <div className='row-span-4 grid grid-cols-1 gap-3 w-full'>
-                                <div className={`${select ? (select == 'optiona' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optiona')}>{curQuestion.optiona}</div>
-                                <div className={`${select ? (select == 'optionb' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optionb')}>{curQuestion.optionb}</div>
-                                <div className={`${select ? (select == 'optionc' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optionc')}>{curQuestion.optionc}</div>
-                                <div className={`${select ? (select == 'optiond' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optiond')}>{curQuestion.optiond}</div>
+                                <div className={`${select ? (select == 'optiona' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optiona')}>{curQuestion.answer1}</div>
+                                <div className={`${select ? (select == 'optionb' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optionb')}>{curQuestion.answer2}</div>
+                                <div className={`${select ? (select == 'optionc' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optionc')}>{curQuestion.answer3}</div>
+                                <div className={`${select ? (select == 'optiond' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optiond')}>{curQuestion.answer4}</div>
                             </div>
                             <div>
                                 <button className={`bg-white hover:bg-blue-100 text-blue-400 font-bold text-lg p-2 rounded ${toggle ? 'visible' : 'invisible'}`} onClick={handleNext}>Next</button> 
