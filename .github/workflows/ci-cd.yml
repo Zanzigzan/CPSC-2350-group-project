@@ -1,0 +1,102 @@
+# CI/CD workflow for testing, building, and deploying
+# triggered automatically on push to main branch, pull request to main branch, or manually by a user
+# overview: run unit tests -> build -> and deploy to Netlify
+# job dependencies: build depends on unit-test, deploy depends on build
+
+name: CICD
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+
+  unit-test: #Unit Testing Job#
+  
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+        
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+      - name: Run test
+        run: | #navigate to fluentify, install dependencies, then run test#
+          cd fluentify;
+          ls;
+          echo "Run test: After moving to fluentify, Current Directory: $PWD";
+
+          npm ci;
+          npm run test;
+
+  build: #Build Job#
+  
+    needs: [unit-test]
+    runs-on: ubuntu-latest
+        
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+      - name: Run build
+        run: | #navigate to fluentify, install dependencies, then run build#
+          cd fluentify;
+          ls;
+          echo "Run build: After moving to fluentify, Current Directory: $PWD";
+
+          npm ci;
+          npm run build;
+
+  deploy: #Deploy Job#
+  
+    needs: [build]
+    runs-on: ubuntu-latest
+        
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+      - name: Run build
+        run: | #navigate to fluentify, install dependencies, then run build#
+          cd fluentify;
+          ls;
+          echo "Run build: After moving to fluentify, Current Directory: $PWD";
+
+          npm ci;
+          npm run build;
+          
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: "./dist"
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }} #UNIQUE TOKEN
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }} #NETLIFY SITE ID
+
