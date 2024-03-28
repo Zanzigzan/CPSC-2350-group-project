@@ -69,27 +69,6 @@ export default function QuizDisplay(props) {
         setLoading(false);
     }
 
-    // temp function
-    async function getQuestion() {
-        const options = ["Lorem","Ipsum","Dolor","Sit"];
-        const index = Math.floor(Math.random() * 4);
-
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        if (Math.random() * 100 < 100) {
-            throw new Error('testing errors');
-        }
-
-        return {
-            question: `The answer is ${options[index]}`,
-            optiona: options[0],
-            optionb: options[1],
-            optionc: options[2],
-            optiond: options[3],
-            answer: options[index]
-        };
-    }
-
     return (
         <>
             <div className='col-span-1 bg-blue-400 rounded border border-black text-white p-7 w-full h-full relative min-w-min' >
