@@ -9,7 +9,7 @@
     "format": "prettier --write .",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest --coverage",
+    "test": "vitest",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -26,7 +26,6 @@
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
-    "@vitest/coverage-v8": "^1.4.0",
     "autoprefixer": "^10.4.18",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
