@@ -1,6 +1,7 @@
-const { translate } = require('./google.js');
+import { translate } from './google.js';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
 
-global.fetch = jest.fn(() =>
+global.fetch = vi.fn(() =>
   Promise.resolve(
     {
     ok: true,
@@ -33,7 +34,7 @@ describe('translate', () => {
     });
 
     it('should throw error when encountering HTTP error', async () => {
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.resolve({
                 ok: false,
                 status: 500,
@@ -46,7 +47,7 @@ describe('translate', () => {
     });
 
     it('should throw error when encountering other errors', async () => {
-        global.fetch = jest.fn(() =>
+        global.fetch = vi.fn(() =>
             Promise.reject(new Error('Network Error'))
         );
         
