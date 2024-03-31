@@ -30,6 +30,5 @@ describe('Generate Text Feature - Check if modal shows up',  ()=>{
 
     });
 
-  
       
 });
