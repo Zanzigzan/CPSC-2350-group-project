@@ -31,9 +31,9 @@ function App() {
         
           
       <div className='flex flex-row mt-6 mb-20 justify-center gap-28'>
-          <SelectFile setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} />
+          <SelectFile setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} loading={loading} />
           <Or/>
-          <GenerateText setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} />
+          <GenerateText setIsOpen={setIsOpen} setError={setError} setLoading={setLoading} loading={loading} />
       </div>
       <MainPageModal isOpen={isOpen} setIsOpen={setIsOpen} error={error} setError={setError} />
       <InstructionModal showModal={showModal} setShowModal={setShowModal} onClose={setShowModal}/>
