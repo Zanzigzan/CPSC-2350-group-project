@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { getTextFromFile } from '../api/getTextFromFile';
 import { useLanguage } from '../context/LanguageContext';
+import Spinner from './Spinner';
 
 const SelectFile = (props) => {
     const [reading, setReading] = useState(false);
