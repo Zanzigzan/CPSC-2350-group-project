@@ -1,7 +1,8 @@
 import QuizDisplay from './QuizDisplay';
-import { useLanguage } from '../context/LanguageContext.jsx'
+import { useLanguage } from '../context/LanguageContext.jsx';
+import { generateQuiz } from '../api/quiz.js';
 import { describe, expect, it, vi } from 'vitest';
-import {render, screen, fireEvent} from '@testing-library/react'
+import {render, screen, fireEvent} from '@testing-library/react';
 
 vi.mock('../context/LanguageContext.jsx', () => ({
     useLanguage: vi.fn(),
@@ -12,35 +13,21 @@ useLanguage.mockReturnValue({
     sourceLanguage: 'en',
 });
 
+vi.mock('../api/quiz.js', () => ({
+    generateQuiz: vi.fn(),
+}));
+
 describe('generate quiz', () => {
 
     it('should display quiz question and options in quiz display', async () => {
-        global.fetch = vi.fn()
-            .mockReturnValueOnce(Promise.resolve({
-                ok: true,
-                json: () => Promise.resolve({
-                    choices: [
-                        {
-                            message: {
-                                content: "[\"test option a\", \"test option b\", \"test option c\", \"test option d\"]"
-                            }
-                        }
-                    ]
-                })
-            }))
-            .mockReturnValueOnce(Promise.resolve({
-                ok: true,
-                json: () => Promise.resolve({
-                    data: {
-                        translations: [
-                            {
-                                detectedSourceLanguage: "de",
-                                translatedText: "test question"
-                            }
-                        ]
-                    }
-                })
-            }));
+        generateQuiz.mockReturnValue(Promise.resolve({
+            "question": "test question",
+            "answer1": "test option a",
+            "answer2": "test option b",
+            "answer3": "test option c",
+            "answer4": "test option d",
+            "correctAnswer": "test option a"
+        }));
 
         render(<QuizDisplay translating={false}/>);
 
@@ -60,14 +47,9 @@ describe('generate quiz', () => {
 
 
     it('should display error when an error is encountered while generating quiz', async () => {
-        global.fetch = vi.fn(() =>
-            Promise.resolve({
-                ok: false,
-                status: 500,
-                statusText: 'Internal Server Error',
-                json: () => Promise.resolve({})
-            })
-        );
+        generateQuiz.mockReturnValue(Promise.reject(
+            new Error('HTTP error! Status: 500')
+        ));
 
         render(<QuizDisplay translating={false}/>);
 
