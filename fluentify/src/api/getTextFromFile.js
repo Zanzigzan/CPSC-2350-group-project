@@ -9,7 +9,16 @@ export function getTextFromFile(file) {
         const reader = new FileReader();
   
         reader.onload = (event) => {
-          resolve(event.target.result);
+          const fileContent = event.target.result;
+          const words = fileContent.split(/\s+/).filter(word => word.trim() !== ''); // Split text into words and remove empty strings
+          const wordCount = words.length;
+  
+          if (wordCount < 10) {
+            console.error('Please upload a file that contains at least 10 words.');
+            reject(new Error('Please upload a file that contains at least 10 words.'));
+          } else {
+            resolve(fileContent);
+          }
         };
   
         reader.onerror = (event) => {
