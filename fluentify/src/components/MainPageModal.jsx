@@ -23,9 +23,9 @@ export default function MainPageModal(props) {
     }
 
     return (
-        <div data-testid='main-page-modal'>
+        <div>
             {props.isOpen ? (
-                <div className='fixed top-0 left-0 h-full w-full bg-white bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+                <div data-testid='main-page-modal' className='fixed top-0 left-0 h-full w-full bg-white bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
                     <div  className='bg-black rounded-3xl bg-opacity-80 px-8 py-14 min-w-[500px] min-h-[250px] flex justify-center items-center'>
                         {props.error ? 
                         (
