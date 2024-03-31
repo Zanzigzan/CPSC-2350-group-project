@@ -37,7 +37,7 @@ function App() {
       </div>
       <MainPageModal isOpen={isOpen} setIsOpen={setIsOpen} error={error} setError={setError} />
       <InstructionModal showModal={showModal} setShowModal={setShowModal} onClose={setShowModal}/>
-
+    
     </div>
   )
 }
