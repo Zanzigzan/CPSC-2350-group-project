@@ -63,7 +63,7 @@ const SelectFile = (props) => {
                 reading ?
                 (
                     <div className={'mt-2 text-blue-400 flex justify-center transform -translate-x-3'}>
-                    <Spinner size={5} color={'blue-400'}/>
+                    <Spinner size={'25px'} color={'blue-400'}/>
                     Reading File...
                     </div>
                 )

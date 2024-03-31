@@ -80,7 +80,7 @@ export default function QuizDisplay(props) {
             <div className='col-span-1 bg-blue-400 rounded border border-black text-white p-7 w-full h-full relative min-w-min' >
                 {loading ? 
                     (<div className='h-full w-full flex justify-center items-center'>
-                        <Spinner size={20} color={'white'} />
+                        <Spinner size={'100px'} color={'white'} />
                     </div>)
                     : 
                     (error ? 
