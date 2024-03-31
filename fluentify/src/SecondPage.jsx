@@ -48,7 +48,7 @@ const SecondPage = () => {
       </div>
       <div className="flex justify-between mt-8">
         <div className="w-3/4 p-4 px-8 pb-8">
-          <TranslatedText translating={translating}/>
+          <TranslatedText translating={translating} error={error}/>
         </div>
         <div className="w-1/4 p-4 px-8 pb-8 md:100svh">
           <QuizDisplay translating={translating}/>
