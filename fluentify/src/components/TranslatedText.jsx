@@ -7,7 +7,6 @@ const TranslatedText = () => {
   return (
     <div className="flex">
       <div className="border-4 border-black rounded-lg h-screen p-4 overflow-auto"> 
-      {/**check if this is right before applying typing effect */}
         <p>{translatedText}</p>
       </div>
     </div>
