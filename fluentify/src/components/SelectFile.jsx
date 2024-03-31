@@ -3,6 +3,7 @@ import { getTextFromFile } from '../api/getTextFromFile';
 import { useLanguage } from '../context/LanguageContext';
 
 const SelectFile = (props) => {
+    const [reading, setReading] = useState(false);
     const [selectedFile, setSelectedFile] = useState('');
     const { setText } = useLanguage();
 
@@ -17,6 +18,7 @@ const SelectFile = (props) => {
       };
 
     function handleSubmit() {
+        if (props.loading) return;
         if (!selectedFile) {
             props.setError("Please select a file.");
             props.setIsOpen(true);
@@ -27,6 +29,7 @@ const SelectFile = (props) => {
 
     async function setTextContext() {
         props.setLoading(true);
+        setReading(true);
 
         getTextFromFile(selectedFile)
             .then((readText) => {
@@ -36,6 +39,7 @@ const SelectFile = (props) => {
                 props.setError(e.message);
             }).finally(() => {
                 setSelectedFile(null);
+                setReading(false)
                 props.setIsOpen(true);
                 props.setLoading(false);
             });
@@ -54,7 +58,20 @@ const SelectFile = (props) => {
                 <span className="mt-2 text-lg leading-normal">{showFileName()}</span>
                 <input type='file' className="hidden" onChange={handleFileChange} accept='.txt'/>
             </label>
-            <div className='mt-2 text-blue-400'>Please upload file in the .txt format</div>
+            {
+                reading ?
+                (
+                    <div className={'mt-2 text-blue-400 flex justify-center transform -translate-x-3'}>
+                    <svg className='mr-3 h-5 w-5 animate-spin text-blue-400' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
+                        <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Reading File...
+                    </div>
+                )
+                :
+                <div className='mt-2 text-blue-400'>Please upload file in the .txt format</div>
+            }
         </div> 
         
         <button className="bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full" onClick={handleSubmit}>
