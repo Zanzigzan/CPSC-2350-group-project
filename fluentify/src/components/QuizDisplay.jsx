@@ -9,6 +9,7 @@ export default function QuizDisplay(props) {
     const [curQuestion, setCurQuestion] = useState({});
 
     const [loading, setLoading] = useState(true);
+    const [generating, setGenerating] = useState(false);
     const [error, setError] = useState('');
 
     const [toggle, setToggle] = useState(false);
@@ -16,10 +17,12 @@ export default function QuizDisplay(props) {
     const [selectColor, setSelectColor] = useState('bg-green-400');
 
     useEffect(() => {
+        setLoading(generating || props.translating || !sourceLanguage || !translatedText);
+    }, [generating, props.translating]);
+
+    useEffect(() => {
         if (!props.translating && sourceLanguage && translatedText) {
             setQuestion();
-        } else if (props.translating) {
-            setLoading(props.translating);
         }
     }, [props.translating]);
 
@@ -54,7 +57,8 @@ export default function QuizDisplay(props) {
     }
 
     async function setQuestion() {
-        setLoading(true);
+        if (generating) return;
+        setGenerating(true);
 
         setSelect(false);
         setToggle(false);
@@ -64,9 +68,10 @@ export default function QuizDisplay(props) {
             setCurQuestion(question);
         } catch (e) {
             setError(e.message);
+        } finally {
+            setGenerating(false);
         }
 
-        setLoading(false);
     }
 
     return (
