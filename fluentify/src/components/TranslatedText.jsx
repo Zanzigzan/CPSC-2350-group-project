@@ -32,14 +32,14 @@ const TranslatedText = (props) => {
 
   return (
     <div className="flex">
-      <div className="border-4 border-black rounded-lg h-screen w-full p-4 overflow-auto"> 
+      <div className="border-4 border-black rounded-lg h-screen w-full p-4 overflow-auto text-2xl p-7"> 
         {
           props.translating ?
-          <div className='text-2xl italic'><TextAnimation /></div>
+          <div className='italic'><TextAnimation /></div>
           :
           (
             props.error ?
-            <div className='text-red-600 text-2xl'>{props.error}... Please go back to <Link to='/' className='font-bold underline hover:text-red-900'>Home Page</Link> to try again.</div>
+            <div className='text-red-600'>{props.error}... Please go back to <Link to='/' className='font-bold underline hover:text-red-900'>Home Page</Link> to try again.</div>
             :
             <p>{translatedText}</p>
           )
