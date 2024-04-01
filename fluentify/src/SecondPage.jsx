@@ -13,7 +13,11 @@ const SecondPage = () => {
     useLanguage();
 
   useEffect(() => {
-    TranslateText();
+    if (!language || !text) {
+      setError("Text and target language not chosen.")
+    } else {
+      TranslateText();
+    }
   }, []);
 
   async function TranslateText() {
@@ -25,7 +29,7 @@ const SecondPage = () => {
       setTranslatedText(result.translatedText);
       setSourceLanguage(result.detectedSourceLanguage);
     } catch (e) {
-      setError(e.message);
+      setError("Unable to translate text.");
     } finally {
       setTranslating(false);
     }
