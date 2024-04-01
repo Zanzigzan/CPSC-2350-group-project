@@ -1,40 +1,40 @@
-import { vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { useLanguage } from "./context/LanguageContext";
+import { useLanguage } from "./context/LanguageContext.jsx";
 
-vi.mock("./context/LanguageContext", () => ({
+
+
+vi.mock("./context/LanguageContext.jsx", () => ({
   useLanguage: vi.fn(),
 }));
 
 useLanguage.mockReturnValue({
-  translatedText: 'test',
-  sourceLanguage: 'en',
+  setText: vi.fn(),
 });
 
+
 describe("Main Page", () => {
-  //file has more than 10 words
-  it("allows user upload for files with more than 10 words", () => {
+//(Upload) integration test: add file + check if the file has more than 10 words + notify user
+  it("shows up when the uploaded file is less than 10 words", async () => {
     render(<App />);
 
-    // text file named Lost_Kitten.txt
-    let file = new File(
-      [
-        "Title: The Lost Kitten \n Once upon a time, in a small village nestled between rolling green hills, there lived a little girl named Lily. Lily had always wanted a pet, so one sunny afternoon, she decided to take a walk through the meadow to see if she could find one. \n As she wandered, she heard a faint meowing coming from behind a bush. Curious, she approached and discovered a tiny, trembling kitten. Its fur was matted and dirty, and it looked very scared. \n Lily gently picked up the kitten and cradled it in her arms.",
-      ],
-      "Lost_Kitten.txt",
-      { type: "text/plain" },
-    );
-    // input element
-    let input = screen.getByLabelText("Choose a file");
-    // submit button
+    // Create a text file with less than 10 words named Lost_Kitten.txt
+    const fileContent = "Title: The Lost Kitten";
+
+    const file = new File([fileContent], "Lost_Kitten.txt", {
+      type: "text/plain",
+    });
+
+    // Get the UI elements for the submission box and submit button
+    const input = screen.getByLabelText("Choose a file");
     const submitButton = screen.getByText("Submit");
 
-    //actions
-    input.fire.change(file);
-    submitButton.fire.click();
+    //user uploads the file and submits
+    fireEvent.change(input, { target: { files: [file] } });
+    fireEvent.click(submitButton);
 
-    //file name should be reflected in the page
-    expect(screen.getByText("Lost_Kitten.txt")).toBeInTheDocument();
+    //pop up should be displayed with the error message
+    await screen.findByTestId("upload-error-content")
   });
 });
