@@ -37,7 +37,11 @@ const SelectFile = (props) => {
                 setText(readText);
             })
             .catch((e) => {
-                props.setError(e.message);
+                if (e.message.startsWith("FileReader Error:")) {
+                    props.setError("Unable to read file. Please try again later.");
+                } else {
+                    props.setError(e.message);
+                }
             }).finally(() => {
                 setSelectedFile(null);
                 setReading(false)
