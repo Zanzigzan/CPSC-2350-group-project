@@ -40,7 +40,7 @@ const SecondPage = () => {
         <div className="flex">
           <Link
             to="/"
-            className="bg-red-700 hover:bg-red-900 text-white text-lg font-bold py-2 px-4 rounded"
+            className="bg-red-700 hover:bg-red-900 text-white text-lg font-museo font-semibold py-2 px-4 rounded"
           >
             Click Here to Exit
           </Link>
