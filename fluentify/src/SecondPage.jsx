@@ -4,13 +4,14 @@ import TranslatedText from "./components/TranslatedText";
 import Logo from "./components/Logo";
 import QuizDisplay from "./components/QuizDisplay";
 import { useLanguage } from "./context/LanguageContext";
-import { translate } from './api/google';
+import { translate } from "./api/google";
 
 const SecondPage = () => {
   const [translating, setTranslating] = useState(false);
-  const [error, setError] = useState('');
-  const { language, text, setTranslatedText, setSourceLanguage} = useLanguage();
-  
+  const [error, setError] = useState("");
+  const { language, text, setTranslatedText, setSourceLanguage } =
+    useLanguage();
+
   useEffect(() => {
     TranslateText();
   }, []);
@@ -28,13 +29,14 @@ const SecondPage = () => {
     } finally {
       setTranslating(false);
     }
-
   }
 
   return (
-    <div>
-      <div className="flex justify-between items-center pl-8 pr-8">
-        <Link to="/"> {/* Link to the root route */}
+    <div className="max-h-screen ml-auto mr-auto mr-container text-center w-4/5 p-4 rounded flex flex-col ">
+      <div className="flex justify-between items-center">
+        <Link to="/">
+          {" "}
+          {/* Link to the root route */}
           <Logo />
         </Link>
         <div className="flex">
@@ -46,12 +48,12 @@ const SecondPage = () => {
           </Link>
         </div>
       </div>
-      <div className="flex justify-between mt-8">
-        <div className="w-3/4 p-4 px-8 pb-8">
-          <TranslatedText translating={translating} error={error}/>
+      <div className="flex-grow mt-8 gap-20 flex flex-row pb-8">
+        <div className="mx-auto w-2/3">
+          <TranslatedText translating={translating} error={error} />
         </div>
-        <div className="w-1/4 p-4 px-8 pb-8 md:100svh">
-          <QuizDisplay translating={translating}/>
+        <div className="mx-auto w-1/3">
+          <QuizDisplay translating={translating} />
         </div>
       </div>
     </div>
