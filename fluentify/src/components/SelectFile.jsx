@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import { getTextFromFile } from '../api/getTextFromFile';
 import { useLanguage } from '../context/LanguageContext';
+import Spinner from './Spinner';
 
 const SelectFile = (props) => {
+    const [reading, setReading] = useState(false);
     const [selectedFile, setSelectedFile] = useState('');
     const { setText } = useLanguage();
 
@@ -17,6 +19,7 @@ const SelectFile = (props) => {
       };
 
     function handleSubmit() {
+        if (props.loading) return;
         if (!selectedFile) {
             props.setError("Please select a file.");
             props.setIsOpen(true);
@@ -27,6 +30,7 @@ const SelectFile = (props) => {
 
     async function setTextContext() {
         props.setLoading(true);
+        setReading(true);
 
         getTextFromFile(selectedFile)
             .then((readText) => {
@@ -36,6 +40,7 @@ const SelectFile = (props) => {
                 props.setError(e.message);
             }).finally(() => {
                 setSelectedFile(null);
+                setReading(false)
                 props.setIsOpen(true);
                 props.setLoading(false);
             });
@@ -54,7 +59,17 @@ const SelectFile = (props) => {
                 <span className="mt-2 text-lg leading-normal">{showFileName()}</span>
                 <input type='file' className="hidden" onChange={handleFileChange} accept='.txt'/>
             </label>
-            <div className='mt-2 text-blue-400'>Please upload file in the .txt format</div>
+            {
+                reading ?
+                (
+                    <div className={'mt-2 text-blue-400 flex justify-center transform -translate-x-3'}>
+                    <Spinner size={'25px'} color={'blue-400'}/>
+                    Reading File...
+                    </div>
+                )
+                :
+                <div className='mt-2 text-blue-400'>Please upload file in the .txt format</div>
+            }
         </div> 
         
         <button className="bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full" onClick={handleSubmit}>
