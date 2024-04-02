@@ -16,7 +16,7 @@ const GenerateText = (props) => {
       const currentText = await generateText(difficulty);
       setText(currentText);
     } catch (e) {
-      props.setError(e.message);
+      props.setError("Unable to generate text. Please try again later.");
     } finally {
       setGenerating(false);
       props.setIsOpen(true);
