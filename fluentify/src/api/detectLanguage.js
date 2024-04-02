@@ -8,7 +8,7 @@ async function detectLanguage(text) {
         "q": text
     };
 
-    const confidenceThreshold = 0.99;
+    const confidenceThreshold = 0.9;
 
     try {
         const response = await fetch(`${apiUrl}?key=${apiKey}`, {
