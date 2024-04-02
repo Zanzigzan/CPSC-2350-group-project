@@ -46,6 +46,6 @@ describe("Select File", () => {
 
     // Create a text file with more than 10 words named Lost_Kitten.txt
     const fileContent =
-      "Title: The Lost Kitten \n Once upon a time, in a small village nestled between rolling green hills, there lived a little
+      "Title: The Lost Kitten \n Once upon a time, in a small village nestled between rolling green hills, there lived a little.";
     });
 });
