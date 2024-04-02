@@ -78,6 +78,16 @@ jobs:
           node-version: 18
           
       - name: Run build
+        env:
+          VITE_GOOGLE_URL: https://translation.googleapis.com/language/translate/v2
+          VITE_GOOGLE_KEY: AIzaSyBtdOW5rhLKZKAeDBYMGPJLWnND4JihXdc
+
+          VITE_OPENAI_URL: https://api.openai.com/v1/chat/completions
+          VITE_OPENAI_KEY: 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
+          VITE_OPENAI_GENERATE_TEXT_PROMPT_EASY: Generate an easy-to-read text suitable for beginners learning a language. The text should be between 500-700 words.
+          VITE_OPENAI_GENERATE_TEXT_PROMPT_MEDIUM: Generate a text with medium difficulty, including a mix of simple and intermediate vocabulary and sentence structures. The text should be between 500-700 words, suitable for learners with some prior knowledge of a language.
+          VITE_OPENAI_GENERATE_TEXT_PROMPT_HARD: Generate a challenging text with advanced vocabulary and complex sentence structures. The text should be between 500-700 words, suitable for advanced learners of a language.
+          VITE_OPENAI_GENERATE_QUIZ_PROMPT: Extract the four hardest words from the following text in the ["word1", "word2", "word3", "word4"] format, and replay with only those words.
         run: | #navigate to fluentify, install dependencies, then run build#
           cd fluentify;
           ls;
@@ -86,8 +96,8 @@ jobs:
           npm ci;
           npm run build;
           
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
+      - name: Netlify Actions
+        uses: nwtgck/actions-netlify@v3.0.0
         with:
           publish-dir: "./fluentify/dist"
           production-branch: main
