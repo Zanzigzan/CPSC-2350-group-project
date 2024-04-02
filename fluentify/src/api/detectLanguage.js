@@ -2,13 +2,13 @@
 const apiUrl = `${import.meta.env.VITE_GOOGLE_URL}/detect`;
 const apiKey = import.meta.env.VITE_GOOGLE_KEY;
 
-// The function to translate given text
+// The function to detects the language of the given text
 async function detectLanguage(text) {
     const data = {
         "q": text
     };
 
-    const confidenceThreshold = 0.9;
+    const confidenceThreshold = 0.99;
 
     try {
         const response = await fetch(`${apiUrl}?key=${apiKey}`, {
@@ -23,6 +23,7 @@ async function detectLanguage(text) {
 
         if (response.ok && (result.data.detections[0][0].confidence > confidenceThreshold)) {
             console.log(result.data.detections[0][0].language);
+            console.log(result.data.detections[0][0].confidence);
             return result.data.detections[0][0].language;
         } else if (response.ok) {
             // Low confidence in language detection
