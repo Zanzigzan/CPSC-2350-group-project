@@ -68,7 +68,7 @@ export default function QuizDisplay(props) {
             const question = await generateQuiz(translatedText, sourceLanguage);
             setCurQuestion(question);
         } catch (e) {
-            setError(e.message);
+            setError("Unable to generate question. Press the button to try again.");
         } finally {
             setGenerating(false);
         }

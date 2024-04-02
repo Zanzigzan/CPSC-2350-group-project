@@ -53,7 +53,7 @@ describe('generate quiz', () => {
 
         render(<QuizDisplay translating={false}/>);
 
-        expect(screen.findByText('HTTP error! Status: 500')).resolves.toBeInTheDocument();
+        expect(screen.findByText('Unable to generate question. Press the button to try again.')).resolves.toBeInTheDocument();
         expect(screen.findByText('Try again.')).resolves.toBeInTheDocument();
     });
 });
