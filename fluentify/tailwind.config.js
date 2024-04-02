@@ -8,6 +8,8 @@ module.exports = {
     extend: {
       fontFamily:{
         gellatio:['Dancing Script', 'cursive'],
+        bumbbled: ['Bumbbled', 'handwriting'],
+        museo: ['Museo Sans Rounded', 'sans-serif'],
       },
     },
   },
