@@ -14,7 +14,7 @@ on:
 
 jobs:
 
-  unit-test: #Unit Testing Job#
+  test: #Unit and Integration Testing Job#
   
     runs-on: ubuntu-latest
 
@@ -38,7 +38,7 @@ jobs:
 
   build: #Build Job#
   
-    needs: [unit-test]
+    needs: [test]
     runs-on: ubuntu-latest
         
     steps:
