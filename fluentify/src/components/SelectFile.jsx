@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { getTextFromFile } from '../api/getTextFromFile';
 import { useLanguage } from '../context/LanguageContext';
 import Spinner from './Spinner';
+import { detectLanguage } from '../api/detectLanguage';
 
 const SelectFile = (props) => {
     const [reading, setReading] = useState(false);
@@ -32,22 +33,24 @@ const SelectFile = (props) => {
         props.setLoading(true);
         setReading(true);
 
-        getTextFromFile(selectedFile)
-            .then((readText) => {
-                setText(readText);
-            })
-            .catch((e) => {
-                if (e.message.startsWith("FileReader Error:")) {
-                    props.setError("Unable to read file. Please try again later.");
-                } else {
-                    props.setError(e.message);
-                }
-            }).finally(() => {
-                setSelectedFile(null);
-                setReading(false)
-                props.setIsOpen(true);
-                props.setLoading(false);
-            });
+        try {
+            const readText = await getTextFromFile(selectedFile);
+            await detectLanguage(readText);
+            setText(readText);
+        } catch (e) {
+            if (e.message.startsWith("FileReader Error:")) {
+                props.setError("Unable to read file. Please try again later.");
+            } else if (e.message.startsWith("Error:HTTP Error:")) {
+                props.setError("There was an error with the network. Please try again later.");
+            } else {
+                props.setError(`${e.message} Please try a different file.`);
+            }
+        } finally {
+            setSelectedFile(null);
+            setReading(false)
+            props.setIsOpen(true);
+            props.setLoading(false);
+        }
     }
 
   return (
