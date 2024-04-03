@@ -2,11 +2,32 @@ import React, {useState} from 'react'
 import { useLanguage } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
 
-export default function MainPageModal(props) {
-    const langList = ['EN', 'DE', 'JP', 'FR']; // TODO
+const langList = [
+    {
+        languageName: "English",
+        languageCode: "en"
+    },
+    {
+        languageName: "Spanish",
+        languageCode: "es"
+    },
+    {
+        languageName: "French",
+        languageCode: "fr"
+    },
+    {
+        languageName: "Japanese",
+        languageCode: "ja"
+    },
+    {
+        languageName: "German",
+        languageCode: "de"
+    }
+];
 
+export default function MainPageModal(props) {
     const { setLanguage } = useLanguage();
-    const [selectedLanguage, setSelectedLanguage] = useState(langList[0]);
+    const [selectedLanguage, setSelectedLanguage] = useState(langList[0].languageCode);
 
     function handleSelection(e) {
         setSelectedLanguage(e.target.value);
@@ -41,7 +62,7 @@ export default function MainPageModal(props) {
                                     <select className='rounded w-full' value={selectedLanguage} onChange={handleSelection}>
                                         {
                                             langList.map((lang) => (
-                                                <option value={lang} key={lang}>{lang}</option>
+                                                <option value={lang.languageCode} key={lang}>{lang.languageName}</option>
                                             ))
                                         }
                                     </select>
