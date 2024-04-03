@@ -32,7 +32,7 @@ const TranslatedText = (props) => {
 
   return (
     <div className="flex">
-      <div className="font-museo border-4 border-black rounded-lg h-screen w-full p-4 overflow-auto text-l p-7"> 
+      <div className="font-museo border-4 border-gray-700 border-opacity-90 rounded-lg h-screen w-full overflow-auto text-l p-7"> 
         {
           props.translating ?
           <div className='italic'><TextAnimation /></div>
