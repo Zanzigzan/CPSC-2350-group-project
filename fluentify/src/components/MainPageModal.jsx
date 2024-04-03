@@ -26,7 +26,7 @@ const langList = [
 ];
 
 export default function MainPageModal(props) {
-    const { setLanguage } = useLanguage();
+    const { setLanguage, setTranslatedText } = useLanguage();
     const [selectedLanguage, setSelectedLanguage] = useState(langList[0].languageCode);
 
     function handleSelection(e) {
@@ -34,6 +34,7 @@ export default function MainPageModal(props) {
     }
 
     function handleConfirm() {
+        setTranslatedText('');
         setLanguage(selectedLanguage);
         props.setIsOpen(false);
     }
