@@ -3,10 +3,12 @@ import { describe, expect, it, vi } from "vitest";
 import SelectFile from "./SelectFile";
 import { useLanguage } from "../context/LanguageContext";
 
+
 const setLoading = vi.fn();
 const setIsOpen = vi.fn();
+const setError = vi.fn();
 
-
+// Mock useLanguage hook
 vi.mock("../context/LanguageContext", () => ({
   useLanguage: vi.fn(),
 }));
@@ -15,10 +17,15 @@ useLanguage.mockReturnValue({
   setText: vi.fn(),
 });
 
-//(Upload) integration test: add file + check if the file has more than 10 words
 describe("Select File", () => {
   it("allows user upload for files with more than 10 words", () => {
-    render(<SelectFile setLoading={setLoading} setIsOpen={setIsOpen} />);
+    render(
+      <SelectFile
+        setLoading={setLoading}
+        setIsOpen={setIsOpen}
+        setError={setError} 
+      />
+    );
 
     // Create a text file with more than 10 words named Lost_Kitten.txt
     const fileContent =
