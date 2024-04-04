@@ -58,43 +58,41 @@ export default function QuizDisplay(props) {
         if (!select) {
             setSelect(id);
 
-            if ((curQuestion.answer1 === curQuestion.correctAnswer) && (id === 'optiona')) {
-                setOptionA(rightAnswer);
-                setScore(score+1);
-            } else if (curQuestion.answer1 === curQuestion.correctAnswer) {
-                setOptionA(rightAnswer);
-            } else if (id === 'optiona') {
-                setOptionA(wrongAnswer);
-            }
+            const options = ['optiona', 'optionb', 'optionc', 'optiond'];
 
-            if ((curQuestion.answer2 === curQuestion.correctAnswer) && (id === 'optionb')) {
-                setOptionB(rightAnswer);
-                setScore(score+1);
-            } else if (curQuestion.answer2 === curQuestion.correctAnswer) {
-                setOptionB(rightAnswer);
-            } else if (id === 'optionb') {
-                setOptionB(wrongAnswer);
-            }
+            for (let i = 0; i < options.length; i++) {
+                const answer = curQuestion['answer'+(i+1)];
 
-            if ((curQuestion.answer3 === curQuestion.correctAnswer) && (id === 'optionc')) {
-                setOptionC(rightAnswer);
-                setScore(score+1);
-            } else if (curQuestion.answer3 === curQuestion.correctAnswer) {
-                setOptionC(rightAnswer);
-            } else if (id === 'optionc') {
-                setOptionC(wrongAnswer);
-            }
-
-            if ((curQuestion.answer4 === curQuestion.correctAnswer) && (id === 'optiond')) {
-                setOptionD(rightAnswer);
-                setScore(score+1);
-            } else if (curQuestion.answer4 === curQuestion.correctAnswer) {
-                setOptionD(rightAnswer);
-            } else if (id === 'optiond') {
-                setOptionD(wrongAnswer);
+                if (id == options[i]) {
+                    if (answer == curQuestion.correctAnswer) {
+                        setScore(score + 1);
+                        setOption(options[i], rightAnswer);
+                    } else {
+                        setOption(options[i], wrongAnswer);
+                    }
+                } else if (answer == curQuestion.correctAnswer) {
+                    setOption(options[i], rightAnswer);
+                }
             }
 
             setToggle(true);
+        }
+    }
+
+    function setOption(option, value) {
+        switch (option) {
+            case 'optiona':
+                setOptionA(value);
+                break;
+            case 'optionb':
+                setOptionB(value);
+                break;
+            case 'optionc':
+                setOptionC(value);
+                break;
+            default:
+                setOptionD(value);
+                break;
         }
     }
 
