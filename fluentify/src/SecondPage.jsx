@@ -53,10 +53,10 @@ const SecondPage = () => {
         </div>
       </div>
       <div className="flex-grow mt-8 gap-20 flex flex-row pb-8">
-        <div className="h-3/4 w-2/3">
+        <div className="w-2/3">
           <TranslatedText translating={translating} error={error} />
         </div>
-        <div className="h-3/4 w-1/3 mx-auto">
+        <div className="w-1/3 mx-auto">
           <QuizDisplay translating={translating} />
         </div>
       </div>

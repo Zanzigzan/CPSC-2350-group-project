@@ -77,7 +77,7 @@ export default function QuizDisplay(props) {
 
     return (
         <>
-            <div className='col-span-1 bg-blue-400 rounded-lg border-4 border-black text-white p-7 relative min-w-min' >
+            <div className='col-span-1 bg-blue-400 rounded-lg border-4 border-black text-white p-7 w-full h-full relative min-w-min' >
                 {loading ? 
                     (<div className='h-full w-full flex justify-center items-center'>
                         <Spinner size={'100px'} color={'white'} />
@@ -94,7 +94,7 @@ export default function QuizDisplay(props) {
                         (<div className='grid gap-7 h-full'>
                             <h1 className='font-bold text-lg'>Question {questionNum}</h1>
                             <h1 className='text-3xl'>{curQuestion.question}</h1>
-                            <div className='row-span-4 grid grid-cols-1 gap-3 w-full'>
+                            <div className='row-span-4 grid grid-cols-1 gap-8 w-full'>
                                 <div className={`${select ? (select == 'optiona' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optiona')}>{curQuestion.answer1}</div>
                                 <div className={`${select ? (select == 'optionb' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optionb')}>{curQuestion.answer2}</div>
                                 <div className={`${select ? (select == 'optionc' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optionc')}>{curQuestion.answer3}</div>
