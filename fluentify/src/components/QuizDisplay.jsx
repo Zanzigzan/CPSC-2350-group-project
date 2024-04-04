@@ -131,8 +131,10 @@ export default function QuizDisplay(props) {
                         </div>) 
                         :
                         (<div className='grid gap-7 h-full'>
-                            <h1 className='font-bold text-lg'>Question {questionNum}</h1>
-                            <div className='font-bold text-lg absolute top-7 right-7'>Score: {score}/{questionNum}</div>
+                            <div className="flex">
+                                <h1 className='font-bold text-lg'>Question {questionNum}</h1>
+                                <div className='font-bold text-lg absolute top-7 right-7'>Score: {score}/{questionNum}</div>
+                            </div>
                             <h1 className='text-3xl'>{curQuestion.question}</h1>
                             <div className='row-span-4 grid grid-cols-1 gap-3 w-full'>
                                 <div className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionA}`} onClick={() => handleSelect('optiona')}>{curQuestion.answer1}</div>
