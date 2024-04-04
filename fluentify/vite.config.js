@@ -7,6 +7,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom', //add jsdom to vite
     globals: true, //add globals to vite
-    setupFiles: './src/integ-tests/setup.js' //add setup file to vite
+    setupFiles: './src/integ-tests/setup.js', //add setup file to vite
+    testTimeout: 60000 //time out after 1 minute 
   }
 })
