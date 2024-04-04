@@ -1,15 +1,21 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { getTextFromFile } from '../api/getTextFromFile';
 import { useLanguage } from '../context/LanguageContext';
 import Spinner from './Spinner';
 import { detectLanguage } from '../api/detectLanguage';
+import languages from '../data/languages.json';
 
 const SelectFile = (props) => {
     const [reading, setReading] = useState(false);
     const [selectedFile, setSelectedFile] = useState('');
+    const [detectedLanguage, setdetectedLanguage] = useState('');
     const { setText } = useLanguage();
 
-    function handleFileChange(e) {
+    useEffect(() => {
+        if (selectedFile) setTextContext();
+    }, [selectedFile]);
+
+    async function handleFileChange(e) {
         const file = e.target.files[0];
         setSelectedFile(file);
         e.target.value = null;
@@ -20,13 +26,10 @@ const SelectFile = (props) => {
       };
 
     function handleSubmit() {
-        if (props.loading) return;
-        if (!selectedFile) {
-            props.setError("Please select a file.");
-            props.setIsOpen(true);
-        } else {
-            setTextContext();
-        }
+        if (props.loading || !selectedFile || reading) return;
+        setSelectedFile(null);
+        setdetectedLanguage("");
+        props.setIsOpen(true);
     }
 
     async function setTextContext() {
@@ -35,8 +38,10 @@ const SelectFile = (props) => {
 
         try {
             const readText = await getTextFromFile(selectedFile);
-            await detectLanguage(readText);
+            const detection = await detectLanguage(readText);
+            setdetectedLanguage(detection);
             setText(readText);
+
         } catch (e) {
             if (e.message.startsWith("FileReader Error:")) {
                 props.setError("Unable to read file. Please try again later.");
@@ -45,10 +50,10 @@ const SelectFile = (props) => {
             } else {
                 props.setError(`${e.message} Please try a different file.`);
             }
-        } finally {
-            setSelectedFile(null);
-            setReading(false)
             props.setIsOpen(true);
+
+        } finally {
+            setReading(false)
             props.setLoading(false);
         }
     }
@@ -75,11 +80,16 @@ const SelectFile = (props) => {
                     </div>
                 )
                 :
-                <div className='mt-2 text-blue-400'>Please upload file in the .txt format</div>
+                (
+                detectedLanguage ? 
+                    <div className='mt-2 text-blue-400 font-bold'>Detected Language: {languages[detectedLanguage]}</div>
+                    :
+                    <div className='mt-2 text-blue-400'>Please upload file in the .txt format</div>
+                )
             }
         </div> 
         
-        <button className="bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full" onClick={handleSubmit}>
+        <button className={(detectedLanguage && !reading) ? "bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full" : "bg-gray-500 cursor-default text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full"} onClick={handleSubmit}>
             Submit
         </button>
         
