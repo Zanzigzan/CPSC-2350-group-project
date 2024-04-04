@@ -55,8 +55,8 @@ const SelectFile = (props) => {
 
   return (
     <div className='w-2/6 h-80 space-y-6 p-4'>
-        <div className='text-3xl font-medium'>
-            Select Your Own Text
+        <div className='text-2xl font-medium'>
+            Upload Your Text
         </div>
         <div className="items-center justify-center bg-grey-lighter">
             <label className="h-32 flex flex-col items-center justify-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-500 hover:text-white">

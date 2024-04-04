@@ -27,7 +27,7 @@ const GenerateText = (props) => {
 
   return (
     <div className='w-2/6 h-80 space-y-10 p-4'>
-      <div className='text-3xl font-medium'>
+      <div className='text-2xl font-medium'>
         Generate Text
       </div>
       <p className='text-lg'>Choose a level of difficulty</p>
