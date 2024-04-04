@@ -26,7 +26,7 @@ const GenerateText = (props) => {
   }
 
   return (
-    <div className='w-2/6 h-96 space-y-14 p-4'>
+    <div className='w-2/6 h-80 space-y-10 p-4'>
       <div className='text-3xl font-medium'>
         Generate Text
       </div>
