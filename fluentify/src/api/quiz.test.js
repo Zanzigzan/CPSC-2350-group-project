@@ -5,20 +5,22 @@ const text = "Maria decided to visit the park. She put on her favorite blue hat 
 const targetLanguage = "de";
 
 vi.mock('./util.js', () => ({
-    generateArrayOfWordsForQuiz: vi.fn().mockResolvedValue(['blue', 'hat', 'park', 'bottle']),
+    generateArrayOfWordsForQuiz: vi.fn().mockResolvedValue(['Blue', 'Hat', 'Park', 'Bottle']),
     selectRandom: vi.fn().mockReturnValue('bottle'),
     isValidArrayFormat: vi.fn().mockReturnValue(true),
+    capitalizeFirstLetter: vi.fn((string) => string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()),
 }));
 
+
 vi.mock('./google.js', () => ({
-    translate: vi.fn().mockResolvedValue({ translatedText: 'flasche' }),
+    translate: vi.fn().mockResolvedValue({ translatedText: 'Flasche' }),
 }));
 
 
 global.fetch = vi.fn(() =>
     Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({ choices: [{ message: { content: '["blue", "hat", "park", "bottle"]' } }] }),
+        json: () => Promise.resolve({ choices: [{ message: { content: '["Blue", "Hat", "Park", "Bottle"]' } }] }),
     })
 );
 
