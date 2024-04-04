@@ -9,9 +9,9 @@ const VITE_OPENAI_KEY = import.meta.env.VITE_OPENAI_KEY;
 const VITE_OPENAI_GENERATE_QUIZ_PROMPT = import.meta.env.VITE_OPENAI_GENERATE_QUIZ_PROMPT;
 
 
-export async function generateQuiz(text, sourceLanguage) {
+export async function generateQuiz(text, sourceLanguage, usedWords = []) {
     try {
-        const words = await generateArrayOfWordsForQuiz(text);
+        const words = await generateArrayOfWordsForQuiz(text, usedWords);
 
         const correctWord = selectRandom(words);
 
@@ -35,13 +35,19 @@ export async function generateQuiz(text, sourceLanguage) {
     }
 }
 
-async function generateArrayOfWordsForQuiz(text) {
+async function generateArrayOfWordsForQuiz(text, usedWords = []) {
+    let prompt = `${VITE_OPENAI_GENERATE_QUIZ_PROMPT} "${text}". Do not pick `;
+
+    for (let word of usedWords) {
+        prompt += `${word}, `;
+    }
+
     // Body
     const data = {
         "model": "gpt-3.5-turbo",
         "messages": [{
             "role": "user",
-            "content": `${VITE_OPENAI_GENERATE_QUIZ_PROMPT} "${text}"`
+            "content": prompt,
         }]
     };
 
