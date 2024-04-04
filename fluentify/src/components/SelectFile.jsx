@@ -50,6 +50,8 @@ const SelectFile = (props) => {
             } else {
                 props.setError(`${e.message} Please try a different file.`);
             }
+            setSelectedFile(null);
+            setdetectedLanguage("");
             props.setIsOpen(true);
 
         } finally {
