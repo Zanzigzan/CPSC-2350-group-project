@@ -7,10 +7,20 @@ export function useLanguage() {
 }
 
 export function LanguageProvider(props) {
-  const [language, setLanguage] = useState();
-  const [text, setText] = useState("");
+  const [language, setLanguageState] = useState(localStorage.getItem("language") || "");
+  const [text, setTextState] = useState(localStorage.getItem("text") || "");
   const [translatedText, setTranslatedText] = useState("");
   const [sourceLanguage, setSourceLanguage] = useState("");
+
+  const setLanguage = (newLanguage) => {
+    localStorage.setItem("language", newLanguage);
+    setLanguageState(newLanguage);
+  }
+
+  const setText = (newText) => {
+    localStorage.setItem("text", newText);
+    setTextState(newText);
+  }
 
   const value = {
     language,
