@@ -12,3 +12,7 @@ export function isValidArrayFormat(content) {
 export function selectRandom(array) {
     return array[(Math.floor(Math.random() * array.length))]
 }
+
+export function capitalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}

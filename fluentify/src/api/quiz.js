@@ -1,4 +1,4 @@
-import { isValidArrayFormat, selectRandom } from './util.js';
+import { isValidArrayFormat, selectRandom, capitalizeFirstLetter } from './util.js';
 import { translate } from './google.js'
 
 
@@ -17,14 +17,14 @@ export async function generateQuiz(text, sourceLanguage, usedWords = []) {
 
         const translatedCorrectWordData = await translate(correctWord, sourceLanguage);
         const translatedCorrectWord = translatedCorrectWordData['translatedText'];
-
+        
         const response = {
-            "question": translatedCorrectWord,
-            "answer1": words[0],
-            "answer2": words[1],
-            "answer3": words[2],
-            "answer4": words[3],
-            "correctAnswer": correctWord
+            "question": capitalizeFirstLetter(translatedCorrectWord),
+            "answer1": capitalizeFirstLetter(words[0]),
+            "answer2": capitalizeFirstLetter(words[1]),
+            "answer3": capitalizeFirstLetter(words[2]),
+            "answer4": capitalizeFirstLetter(words[3]),
+            "correctAnswer": capitalizeFirstLetter(correctWord)
         }
         
         console.log(response); 
