@@ -36,8 +36,8 @@ const SecondPage = () => {
   }
 
   return (
-    <div className="max-h-screen ml-auto mr-auto mr-container text-center w-4/5 p-4 rounded flex flex-col ">
-      <div className="flex justify-between items-center">
+    <div className="h-screen ml-auto mr-auto text-center w-4/5 p-4 rounded flex flex-col">
+      <div className="flex justify-between items-center mt-4">
         <Link to="/">
           {" "}
           {/* Link to the root route */}
@@ -53,10 +53,10 @@ const SecondPage = () => {
         </div>
       </div>
       <div className="flex-grow mt-8 gap-20 flex flex-row pb-8">
-        <div className="mx-auto w-2/3">
+        <div className="w-2/3">
           <TranslatedText translating={translating} error={error} />
         </div>
-        <div className="mx-auto w-1/3">
+        <div className="w-1/3 mx-auto">
           <QuizDisplay translating={translating} />
         </div>
       </div>

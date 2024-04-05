@@ -136,11 +136,13 @@ export default function QuizDisplay(props) {
                                 <div className='font-bold text-lg absolute top-7 right-7'>Score: {score}/{questionNum}</div>
                             </div>
                             <h1 className='text-3xl'>{curQuestion.question}</h1>
-                            <div className='row-span-4 grid grid-cols-1 gap-3 w-full'>
-                                <div className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionA}`} onClick={() => handleSelect('optiona')}>{curQuestion.answer1}</div>
-                                <div className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionB}`} onClick={() => handleSelect('optionb')}>{curQuestion.answer2}</div>
-                                <div className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionC}`} onClick={() => handleSelect('optionc')}>{curQuestion.answer3}</div>
-                                <div className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionD}`} onClick={() => handleSelect('optiond')}>{curQuestion.answer4}</div>
+
+                            <div className='row-span-4 grid grid-cols-1 gap-8 w-full'>
+                                <div className={`${select ? (select == 'optiona' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optiona')}>{curQuestion.answer1}</div>
+                                <div className={`${select ? (select == 'optionb' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optionb')}>{curQuestion.answer2}</div>
+                                <div className={`${select ? (select == 'optionc' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optionc')}>{curQuestion.answer3}</div>
+                                <div className={`${select ? (select == 'optiond' ? `${selectColor} text-white` : 'bg-white text-blue-400') : 'bg-white text-blue-400 hover:bg-blue-100 cursor-pointer'} font-bold text-lg p-3 rounded flex items-center justify-center h-full`} onClick={() => handleSelect('optiond')}>{curQuestion.answer4}</div>
+
                             </div>
                             <div>
                                 <button className={`bg-white hover:bg-blue-100 text-blue-400 font-bold text-lg p-2 rounded ${toggle ? 'visible' : 'invisible'}`} onClick={handleNext}>Next</button> 
