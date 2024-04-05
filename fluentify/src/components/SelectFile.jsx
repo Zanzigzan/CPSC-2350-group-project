@@ -29,7 +29,7 @@ const SelectFile = (props) => {
       selectedFile.name
     ) : (
       <span>
-        Click Here to Upload the File You Want to Translate
+        Upload the File You Want to Translate
       </span>
     );
   };
@@ -96,6 +96,8 @@ const SelectFile = (props) => {
                 2. Strictly in one language
                 <br />
                 3. Has at least ten words
+                <br />
+                Click to continue
               </span>
             ) : (
               showFileName()

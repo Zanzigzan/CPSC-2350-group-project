@@ -47,7 +47,7 @@ const MainHeader = (props) => {
           style={{ boxShadow: "0 0 0 2px rgba(59, 130, 246, 0.5)" }}
           onClick={handleClick}
         >
-          Click Here to Learn How it Works
+          Click Here to Learn How to Use Fluentify
         </button>
       </div>
     </div>

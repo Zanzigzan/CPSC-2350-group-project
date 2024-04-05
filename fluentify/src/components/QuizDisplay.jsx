@@ -147,12 +147,13 @@ export default function QuizDisplay(props) {
                 Score: {score}/{questionNum}
               </div>
             </div>
-            <h2 className="text-3xl"> Refer to the translated text at the right.  <br /> Choose the correct translation of the word: </h2>
+            <h2 className="text-3xl">
+              {" "}
+              Refer to the translated text at the left. <br /> Choose the
+              correct translation of the word:{" "}
+            </h2>
             <h1 className="text-4xl font-bold">{curQuestion.question}</h1>
-            <div
-              className="row-span-4 grid grid-cols-1 gap-3 w-full box-shadow: 0 0 0 5px rgba(59, 130, 246, 1.0)"
-              style={{ boxShadow: "0 0 0 2px rgba(59, 130, 246, 0.5)" }}
-            >
+            <div className="row-span-4 grid grid-cols-1 gap-3 w-full box-shadow: 0 0 0 10px rgba(59, 130, 246, 1.0)">
               <div
                 className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionA}`}
                 onClick={() => handleSelect("optiona")}
