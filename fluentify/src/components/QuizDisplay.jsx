@@ -1,118 +1,122 @@
-import React, {useState, useEffect} from 'react'
-import { useLanguage } from '../context/LanguageContext';
-import { generateQuiz } from '../api/quiz';
-import Spinner from './Spinner';
+import React, { useState, useEffect } from "react";
+import { useLanguage } from "../context/LanguageContext";
+import { generateQuiz } from "../api/quiz";
+import Spinner from "./Spinner";
 
 export default function QuizDisplay(props) {
-    const unSelected = 'bg-white text-blue-400 font-bold text-lg p-3 rounded flex items-center justify-center h-full';
-    const rightAnswer = 'bg-green-400 text-white font-bold text-lg p-3 rounded flex items-center justify-center h-full';
-    const wrongAnswer = 'bg-red-400 text-white font-bold text-lg p-3 rounded flex items-center justify-center h-full';
+  const unSelected =
+    "bg-white text-blue-400 font-bold text-lg p-3 rounded flex items-center justify-center h-full";
+  const rightAnswer =
+    "bg-green-400 text-white font-bold text-lg p-3 rounded flex items-center justify-center h-full";
+  const wrongAnswer =
+    "bg-red-400 text-white font-bold text-lg p-3 rounded flex items-center justify-center h-full";
 
-    const {translatedText, sourceLanguage} = useLanguage();
+  const { translatedText, sourceLanguage } = useLanguage();
 
-    const [score, setScore] = useState(0);
-    const [questionNum, setQuestionNum] = useState(1);
-    const [curQuestion, setCurQuestion] = useState({});
+  const [score, setScore] = useState(0);
+  const [questionNum, setQuestionNum] = useState(1);
+  const [curQuestion, setCurQuestion] = useState({});
 
-    const [loading, setLoading] = useState(true);
-    const [generating, setGenerating] = useState(false);
-    const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [generating, setGenerating] = useState(false);
+  const [error, setError] = useState("");
 
-    const [toggle, setToggle] = useState(false);
-    const [select, setSelect] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const [select, setSelect] = useState(false);
 
-    const [optionA, setOptionA] = useState(unSelected);
-    const [optionB, setOptionB] = useState(unSelected);
-    const [optionC, setOptionC] = useState(unSelected);
-    const [optionD, setOptionD] = useState(unSelected);
+  const [optionA, setOptionA] = useState(unSelected);
+  const [optionB, setOptionB] = useState(unSelected);
+  const [optionC, setOptionC] = useState(unSelected);
+  const [optionD, setOptionD] = useState(unSelected);
 
-    useEffect(() => {
-        setLoading(generating || props.translating || !sourceLanguage || !translatedText);
-    }, [generating, props.translating]);
+  useEffect(() => {
+    setLoading(
+      generating || props.translating || !sourceLanguage || !translatedText,
+    );
+  }, [generating, props.translating]);
 
-    useEffect(() => {
-        if (!props.translating && sourceLanguage && translatedText) {
-            setQuestion();
+  useEffect(() => {
+    if (!props.translating && sourceLanguage && translatedText) {
+      setQuestion();
+    }
+  }, [props.translating]);
+
+  function handleNext() {
+    setQuestionNum(questionNum + 1);
+    unselectAll();
+    setQuestion();
+  }
+
+  function unselectAll() {
+    setOptionA(unSelected);
+    setOptionB(unSelected);
+    setOptionC(unSelected);
+    setOptionD(unSelected);
+  }
+
+  function handleTryAgain() {
+    setError("");
+    setQuestion();
+  }
+
+  function handleSelect(id) {
+    if (!select) {
+      setSelect(id);
+
+      const options = ["optiona", "optionb", "optionc", "optiond"];
+
+      for (let i = 0; i < options.length; i++) {
+        const answer = curQuestion["answer" + (i + 1)];
+
+        if (id == options[i]) {
+          if (answer == curQuestion.correctAnswer) {
+            setScore(score + 1);
+            setOption(options[i], rightAnswer);
+          } else {
+            setOption(options[i], wrongAnswer);
+          }
+        } else if (answer == curQuestion.correctAnswer) {
+          setOption(options[i], rightAnswer);
         }
-    }, [props.translating]);
+      }
 
-    function handleNext() {
-        setQuestionNum(questionNum + 1);
-        unselectAll();
-        setQuestion();
+      setToggle(true);
     }
+  }
 
-    function unselectAll() {
-        setOptionA(unSelected);
-        setOptionB(unSelected);
-        setOptionC(unSelected);
-        setOptionD(unSelected);
+  function setOption(option, value) {
+    switch (option) {
+      case "optiona":
+        setOptionA(value);
+        break;
+      case "optionb":
+        setOptionB(value);
+        break;
+      case "optionc":
+        setOptionC(value);
+        break;
+      default:
+        setOptionD(value);
+        break;
     }
+  }
 
-    function handleTryAgain() {
-        setError('');
-        setQuestion();
+  async function setQuestion() {
+    if (generating) return;
+    setGenerating(true);
+
+    setSelect(false);
+    setToggle(false);
+
+    try {
+      const question = await generateQuiz(translatedText, sourceLanguage);
+      setCurQuestion(question);
+    } catch (e) {
+      setError("Unable to generate question. Press the button to try again.");
+    } finally {
+      setGenerating(false);
     }
-
-    function handleSelect(id) {
-        if (!select) {
-            setSelect(id);
-
-            const options = ['optiona', 'optionb', 'optionc', 'optiond'];
-
-            for (let i = 0; i < options.length; i++) {
-                const answer = curQuestion['answer'+(i+1)];
-
-                if (id == options[i]) {
-                    if (answer == curQuestion.correctAnswer) {
-                        setScore(score + 1);
-                        setOption(options[i], rightAnswer);
-                    } else {
-                        setOption(options[i], wrongAnswer);
-                    }
-                } else if (answer == curQuestion.correctAnswer) {
-                    setOption(options[i], rightAnswer);
-                }
-            }
-
-            setToggle(true);
-        }
-    }
-
-    function setOption(option, value) {
-        switch (option) {
-            case 'optiona':
-                setOptionA(value);
-                break;
-            case 'optionb':
-                setOptionB(value);
-                break;
-            case 'optionc':
-                setOptionC(value);
-                break;
-            default:
-                setOptionD(value);
-                break;
-        }
-    }
-
-    async function setQuestion() {
-        if (generating) return;
-        setGenerating(true);
-
-        setSelect(false);
-        setToggle(false);
-
-        try {
-            const question = await generateQuiz(translatedText, sourceLanguage);
-            setCurQuestion(question);
-        } catch (e) {
-            setError("Unable to generate question. Press the button to try again.");
-        } finally {
-            setGenerating(false);
-        }
-
-    }
+  }
 
     return (
         <>

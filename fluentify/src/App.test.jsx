@@ -27,7 +27,7 @@ describe("Main Page", () => {
     });
 
     // Get the UI elements for the submission box and submit button
-    const input = screen.getByLabelText("Choose a file");
+    const input = screen.getByLabelText("Click Here to Upload the File You Want to Translate");
     const submitButton = screen.getByText("Submit");
 
     //user uploads the file and submits
