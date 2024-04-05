@@ -25,7 +25,13 @@ const SelectFile = (props) => {
   }
 
   const showFileName = () => {
-    return selectedFile ? selectedFile.name : "Choose a file";
+    return selectedFile ? (
+      selectedFile.name
+    ) : (
+      <span>
+        Click Here to Upload the File You Want to Translate
+      </span>
+    );
   };
 
   function handleSubmit() {
@@ -71,7 +77,7 @@ const SelectFile = (props) => {
         onMouseEnter={() => setMouseInside(true)} // Set mouse inside to true
         onMouseLeave={() => setMouseInside(false)} // Set mouse inside to false
       >
-        <label className="h-40 flex flex-col items-center justify-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-500 hover:text-white">
+        <label className="h-40 flex flex-col items-center justify-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue-500 hover:text-white">
           <svg
             className="w-8 h-8"
             fill="currentColor"
@@ -85,11 +91,11 @@ const SelectFile = (props) => {
               <span>
                 Please ensure your document is:
                 <br />
-                1. Free of typographical errors
+                1. Free of errors
                 <br />
-                2. Exclusively in one language
+                2. Strictly in one language
                 <br />
-                3. Comprises a minimum of ten words.
+                3. Has at least ten words
               </span>
             ) : (
               showFileName()

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { generateText } from '../api/openai';
-import { useLanguage } from '../context/LanguageContext';
-import Spinner from './Spinner';
+import React, { useState } from "react";
+import { generateText } from "../api/openai";
+import { useLanguage } from "../context/LanguageContext";
+import Spinner from "./Spinner";
 
 const GenerateText = (props) => {
   const { setText } = useLanguage();
@@ -22,26 +22,48 @@ const GenerateText = (props) => {
       props.setIsOpen(true);
       props.setLoading(false);
     }
-
   }
 
   return (
-    <div className='w-2/6 h-96 space-y-14 p-4'>
-      <div className='text-3xl font-medium'>
-        Generate Text
-      </div>
-      <p className='text-lg'>Choose a level of difficulty</p>
-      <div className='flex text-center justify-center space-x-9 border-black border-2 rounded-lg shadow-lg px-4 py-14 relative'>
-        <button className='bg-green-400 hover:bg-green-700 text-white text-lg font-bold py-2 px-4 rounded' onClick={() => handleClick('easy')}>Easy</button>
-        <button className='bg-yellow-400 hover:bg-yellow-700 text-white text-lg  font-bold py-2 px-4 rounded' onClick={() => handleClick('medium')}>Average</button>
-        <button className='bg-red-400 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded' onClick={() => handleClick('hard')}>Hard</button>
-        <div className={`${generating ? 'visible' : 'invisible'} absolute bottom-2 text-blue-400 flex transform -translate-x-7`}>
-          <Spinner size={'25px'} color={'blue-400'}/>
+    <div className="w-2/6 h-96 space-y-14 p-4">
+      <div className="text-3xl font-medium">Generate Text</div>
+      <div className="text-lg">Choose a level of difficulty</div>
+      <div className="flex text-center justify-center space-x-9 border-black border-2 rounded-lg px-4 py-14 relative">
+        <button
+          className="bg-green-400 hover:bg-green-700 text-white text-lg font-bold py-2 px-4 rounded box-shadow: 0 0 0 5px rgba(59, 130, 246, 1.0)"
+          style={{ boxShadow: "0 0 0 2px rgba(59, 130, 246, 0.5)" }}
+          onClick={() => handleClick("easy")}
+        >
+          Easy
+        </button>
+
+        <button
+          className="bg-yellow-400 hover:bg-yellow-700 text-white text-lg font-bold py-2 px-4 rounded box-shadow: 0 0 0 5px rgba(59, 130, 246, 1.0)"
+          style={{ boxShadow: "0 0 0 2px rgba(59, 130, 246, 0.5)" }}
+          onClick={() => handleClick("medium")}
+        >
+          Average
+        </button>
+        <button
+          className="bg-red-400 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded box-shadow: 0 0 0 5px rgba(59, 130, 246, 1.0)"
+          style={{ boxShadow: "0 0 0 2px rgba(59, 130, 246, 0.5)" }}
+          onClick={() => handleClick("hard")}
+        >
+          Hard
+        </button>
+        <div className={`${generating ? "invisible" : "visible"} absolute bottom-2 text-red-400 flex transform -translate-x-7`}>
+          English is not available for this feature
+        </div>
+        <div
+          className={`${generating ? "visible" : "invisible"} absolute bottom-2 text-blue-400 flex transform -translate-x-7`}
+        >
+          <Spinner size={"25px"} color={"blue-400"} />
           Generating...
         </div>
-      </div> 
+        
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default GenerateText
+export default GenerateText;

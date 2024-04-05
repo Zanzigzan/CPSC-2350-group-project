@@ -14,7 +14,7 @@ const SecondPage = () => {
 
   useEffect(() => {
     if (!language || !text) {
-      setError("Text and target language not chosen.")
+      setError("Text and target language not chosen.");
     } else {
       TranslateText();
     }
@@ -46,7 +46,8 @@ const SecondPage = () => {
         <div className="flex">
           <Link
             to="/"
-            className="bg-red-700 hover:bg-red-900 text-white text-lg font-museo font-semibold py-2 px-4 rounded"
+            className="bg-red-700 hover:bg-red-900 text-white text-lg font-museo font-semibold py-2 px-4 rounded box-shadow: 0 0 0 5px rgba(59, 130, 246, 1.0)"
+            style={{ boxShadow: "0 0 0 2px rgba(59, 130, 246, 0.5)" }}
           >
             Click Here to Exit
           </Link>
@@ -63,7 +64,5 @@ const SecondPage = () => {
     </div>
   );
 };
-
-
 
 export default SecondPage;
