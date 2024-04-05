@@ -33,10 +33,11 @@ const MainHeader = (props) => {
   return (
     <div className='bg-blue-400 py-10 space-x-6'>
         <div className='h-12 mb-16 mt-0 text-white text-5xl font-medium leading-tight text-primary'> <Typewriter text="Find Your Fluent" delay={150} infinite/></div>
-        <div className='text-2xl text-white qleading-tight'>Improve your vocabulary by reading in your target language</div>
+        <div className='text-3xl font-bold text-white qleading-tight mb-4'>Are you an intermediate language learner looking for vocabulary practice?</div>
+        <div className='text-2xl text-white qleading-tight'>Improve your vocabulary by reading texts in your target language</div>
         <div className='mt-10'>
           <button className='bg-white hover:text-blue-400 text-black text-lg font-semibold py-2 px-4 rounded' onClick ={handleClick}>
-              Check How It Works
+              Click Here to Learn How it Works
           </button>
         </div>
     </div>
