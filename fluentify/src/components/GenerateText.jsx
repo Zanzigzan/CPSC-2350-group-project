@@ -65,5 +65,4 @@ const GenerateText = (props) => {
     </div>
   );
 };
-
 export default GenerateText;

@@ -41,10 +41,7 @@ export default function MainPageModal(props) {
                                     <h2 className='text-white'>Language</h2>
                                     <select className='rounded w-full' value={selectedLanguage} onChange={handleSelection}>
                                         {
-                                            Object.entries(langList)
-                                            // Exclude English if triggered from generating text
-                                            .slice(props.fromGenerateText ? 1 : 0)
-                                            .map(([languageCode, languageName]) => (
+                                            Object.entries(langList).map(([languageCode, languageName]) => (
                                                 <option value={languageCode} key={languageCode}>{languageName}</option>
                                             ))
                                         }
