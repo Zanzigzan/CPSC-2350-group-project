@@ -14,7 +14,7 @@ on:
 
 jobs:
 
-  test: #Testing Job#
+  test: #Unit and Integration Testing Job#
   
     runs-on: ubuntu-latest
 
