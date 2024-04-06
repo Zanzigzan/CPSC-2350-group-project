@@ -95,6 +95,7 @@ jobs:
 
           npm ci;
           npm run build;
+          npm run test;
           
       - name: Netlify Actions
         uses: nwtgck/actions-netlify@v3.0.0
