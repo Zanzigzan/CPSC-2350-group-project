@@ -118,43 +118,79 @@ export default function QuizDisplay(props) {
     }
   }
 
-    return (
-        <>
-            <div className='col-span-1 bg-blue-400 rounded-lg border-4 border-black text-white p-7 w-full h-full relative min-w-min' >
-                {loading ? 
-                    (<div className='h-full w-full flex justify-center items-center'>
-                        <Spinner size={'100px'} color={'white'} />
-                    </div>)
-                    : 
-                    (error ? 
-                        (<div className='grid h-full'>
-                            <div className='text-red-600 text-lg'>{error}</div>
-                            <div className='flex justify-center items-end'>
-                                <button className={'bg-white hover:bg-blue-100 text-blue-400 font-bold text-lg p-2 rounded'} onClick={handleTryAgain}>Try again.</button> 
-                            </div>
-                        </div>) 
-                        :
-                        (<div className='grid gap-7 h-full'>
-                            <div className="flex">
-                                <h1 className='font-bold text-lg'>Question {questionNum}</h1>
-                                <div className='font-bold text-lg absolute top-7 right-7'>Score: {score}/{questionNum}</div>
-                            </div>
-                            <h1 className='text-3xl'>{curQuestion.question}</h1>
-
-                            <div className='row-span-4 grid grid-cols-1 gap-8 w-full'>
-                                <div className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionA}`} onClick={() => handleSelect('optiona')}>{curQuestion.answer1}</div>
-                                <div className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionB}`} onClick={() => handleSelect('optionb')}>{curQuestion.answer2}</div>
-                                <div className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionC}`} onClick={() => handleSelect('optionc')}>{curQuestion.answer3}</div>
-                                <div className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionD}`} onClick={() => handleSelect('optiond')}>{curQuestion.answer4}</div>
-
-                            </div>
-                            <div>
-                                <button className={`bg-white hover:bg-blue-100 text-blue-400 font-bold text-lg p-2 rounded ${toggle ? 'visible' : 'invisible'}`} onClick={handleNext}>Next</button> 
-                            </div>
-                        </div>)
-                    )
+  return (
+    <>
+      <div className="col-span-1 bg-blue-400 rounded-lg border-4 border-black text-white p-7 w-full h-full relative min-w-min">
+        {loading ? (
+          <div className="h-full w-full flex justify-center items-center">
+            <Spinner size={"100px"} color={"white"} />
+          </div>
+        ) : error ? (
+          <div className="grid h-full">
+            <div className="text-red-600 text-lg">{error}</div>
+            <div className="flex justify-center items-end">
+              <button
+                className={
+                  "bg-white hover:bg-blue-100 text-blue-400 font-bold text-lg p-2 rounded"
                 }
+                onClick={handleTryAgain}
+              >
+                Try again.
+              </button>
             </div>
-        </>
-    );
+          </div>
+        ) : (
+          <div className="grid gap-7 h-full">
+            <div className="flex">
+              <h1 className="font-bold text-lg">Question {questionNum}</h1>
+              <div className="font-bold text-lg absolute top-7 right-7">
+                Score: {score}/{questionNum}
+              </div>
+            </div>
+            <h2 className="text-3xl">
+              {" "}
+              Refer to the translated text at the left. <br /> Choose the
+              correct translation of the word:{" "}
+            </h2>
+            <h1 className="text-4xl font-bold">{curQuestion.question}</h1>
+
+            <div className="row-span-4 grid grid-cols-1 gap-3 w-full box-shadow: 0 0 0 10px rgba(59, 130, 246, 1.0)">
+              <div
+                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionA}`}
+                onClick={() => handleSelect("optiona")}
+              >
+                {curQuestion.answer1}
+              </div>
+              <div
+                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionB}`}
+                onClick={() => handleSelect("optionb")}
+              >
+                {curQuestion.answer2}
+              </div>
+              <div
+                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionC}`}
+                onClick={() => handleSelect("optionc")}
+              >
+                {curQuestion.answer3}
+              </div>
+              <div
+                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionD}`}
+                onClick={() => handleSelect("optiond")}
+              >
+                {curQuestion.answer4}
+              </div>
+            </div>
+            <div>
+              <button
+                className={`bg-white hover:bg-blue-100 text-blue-400 font-bold text-lg p-2 rounded ${toggle ? "visible" : "invisible"}`}
+                onClick={handleNext}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
 }
