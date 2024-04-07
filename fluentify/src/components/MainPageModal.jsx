@@ -1,12 +1,18 @@
 // MainPageModal.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
 import langList from '../data/languages.json';
 
 export default function MainPageModal(props) {
-    const { language, setLanguage, setTranslatedText } = useLanguage();
-    const [selectedLanguage, setSelectedLanguage] = useState(language || Object.keys(langList)[0]);
+    const { language, setLanguage, setTranslatedText, sourceLanguage } = useLanguage();
+    const [selectedLanguage, setSelectedLanguage] = useState((language && (language != sourceLanguage)) ? language : 
+                                                            Object.keys(langList).find(languageCode => languageCode != sourceLanguage));
+
+    useEffect(() => {
+        setSelectedLanguage((language && (language != sourceLanguage)) ? language : 
+                            Object.keys(langList).find(languageCode => languageCode != sourceLanguage));
+    }, [sourceLanguage]);
 
     function handleSelection(e) {
         setSelectedLanguage(e.target.value);
@@ -41,9 +47,11 @@ export default function MainPageModal(props) {
                                     <h2 className='text-white'>Language</h2>
                                     <select className='rounded w-full' value={selectedLanguage} onChange={handleSelection}>
                                         {
-                                            Object.entries(langList).map(([languageCode, languageName]) => (
-                                                <option value={languageCode} key={languageCode}>{languageName}</option>
-                                            ))
+                                            Object.entries(langList)
+                                                .filter(([languageCode]) => languageCode != sourceLanguage)
+                                                .map(([languageCode, languageName]) => (
+                                                    <option value={languageCode} key={languageCode}>{languageName}</option>
+                                                ))
                                         }
                                     </select>
                                 </div>

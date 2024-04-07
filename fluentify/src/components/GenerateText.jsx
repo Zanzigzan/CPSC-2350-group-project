@@ -4,7 +4,7 @@ import { useLanguage } from "../context/LanguageContext";
 import Spinner from "./Spinner";
 
 const GenerateText = (props) => {
-  const { setText } = useLanguage();
+  const { setText, setSourceLanguage } = useLanguage();
   const [generating, setGenerating] = useState(false);
 
   async function handleClick(difficulty) {
@@ -15,6 +15,7 @@ const GenerateText = (props) => {
     try {
       const currentText = await generateText(difficulty);
       setText(currentText);
+      setSourceLanguage("en");
     } catch (e) {
       props.setError("Unable to generate text. Please try again later.");
     } finally {
