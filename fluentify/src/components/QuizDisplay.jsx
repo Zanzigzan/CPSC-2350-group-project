@@ -11,11 +11,14 @@ export default function QuizDisplay(props) {
   const wrongAnswer =
     "bg-red-400 text-white font-bold text-lg p-3 rounded flex items-center justify-center h-full";
 
+  const quizLength = 100;
+
   const { translatedText, sourceLanguage } = useLanguage();
 
   const [score, setScore] = useState(0);
   const [questionNum, setQuestionNum] = useState(1);
   const [curQuestion, setCurQuestion] = useState({});
+  const [pastQuestions, setPastQuestions] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
@@ -71,6 +74,12 @@ export default function QuizDisplay(props) {
         if (id == options[i]) {
           if (answer == curQuestion.correctAnswer) {
             setScore(score + 1);
+
+            if (pastQuestions.length >= quizLength) {
+              setPastQuestions([]);
+            }
+            setPastQuestions(prevQuestions => [...prevQuestions, answer]);
+
             setOption(options[i], rightAnswer);
           } else {
             setOption(options[i], wrongAnswer);
@@ -109,7 +118,7 @@ export default function QuizDisplay(props) {
     setToggle(false);
 
     try {
-      const question = await generateQuiz(translatedText, sourceLanguage);
+      const question = await generateQuiz(translatedText, sourceLanguage, pastQuestions);
       setCurQuestion(question);
     } catch (e) {
       setError("Unable to generate question. Press the button to try again.");
