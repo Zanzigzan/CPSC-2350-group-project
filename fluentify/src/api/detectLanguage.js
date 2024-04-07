@@ -22,9 +22,9 @@ async function detectLanguage(text) {
         const result = await response.json();
 
         if (response.ok && (result.data.detections[0][0].confidence > confidenceThreshold)) {
-            console.log(result.data.detections[0][0].language);
-            console.log(result.data.detections[0][0].confidence);
+            // returns the detected language when confidence is above the given threshold
             return result.data.detections[0][0].language;
+            
         } else if (response.ok) {
             // Low confidence in language detection
             console.error(`Unable to detect language of given text. Confidence of: ${result.data.detections[0][0].confidence}`);
