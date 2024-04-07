@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { generateQuiz } from "../api/quiz";
 import Spinner from "./Spinner";
+import QuizOption from "./QuizOption";
 
 export default function QuizDisplay(props) {
   const unSelected = {
@@ -175,38 +176,10 @@ export default function QuizDisplay(props) {
             <h1 className="text-4xl font-bold">{curQuestion.question}</h1>
 
             <div className="row-span-4 grid grid-cols-1 gap-3 w-full box-shadow: 0 0 0 10px rgba(59, 130, 246, 1.0)">
-              <div
-                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionA.style}`}
-                onClick={() => handleSelect("optiona")}
-              >
-                <div className="absolute left-10 text-xs">{optionA.text}</div>
-                <div>{curQuestion.answer1}</div>
-                {optionA.icon ? <img src={optionA.icon} alt={`Icon of ${optionA.text} answer`} className="absolute right-5"/> : <></>}
-              </div>
-              <div
-                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionB.style}`}
-                onClick={() => handleSelect("optionb")}
-              >
-                <div className="absolute left-10 text-xs">{optionB.text}</div>
-                <div>{curQuestion.answer2}</div>
-                {optionB.icon ? <img src={optionB.icon} alt={`Icon of ${optionB.text} answer`} className="absolute right-5"/> : <></>}
-              </div>
-              <div
-                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionC.style}`}
-                onClick={() => handleSelect("optionc")}
-              >
-                <div className="absolute left-10 text-xs">{optionC.text}</div>
-                <div>{curQuestion.answer3}</div>
-                {optionC.icon ? <img src={optionC.icon} alt={`Icon of ${optionC.text} answer`} className="absolute right-5"/> : <></>}
-              </div>
-              <div
-                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionD.style}`}
-                onClick={() => handleSelect("optiond")}
-              >
-                <div className="absolute left-10 text-xs">{optionD.text}</div>
-                <div>{curQuestion.answer4}</div>
-                {optionD.icon ? <img src={optionD.icon} alt={`Icon of ${optionD.text} answer`} className="absolute right-5"/> : <></>}
-              </div>
+              <QuizOption id={"optiona"} value={curQuestion.answer1} option={optionA} handleSelect={handleSelect} select={select}/>
+              <QuizOption id={"optionb"} value={curQuestion.answer2} option={optionB} handleSelect={handleSelect} select={select}/>
+              <QuizOption id={"optionc"} value={curQuestion.answer3} option={optionC} handleSelect={handleSelect} select={select}/>
+              <QuizOption id={"optiond"} value={curQuestion.answer4} option={optionD} handleSelect={handleSelect} select={select}/>
             </div>
             <div>
               <button
