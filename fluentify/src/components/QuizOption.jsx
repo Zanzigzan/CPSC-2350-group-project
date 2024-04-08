@@ -1,15 +1,24 @@
 import React from "react";
 
 export default function QuizOption(props) {
+
+    function handleKeyDown(e) {
+        if (e.key === 'Enter') {
+            props.handleSelect(props.id);
+        }
+    }
+
   return (
     <>
         <div
-        className={`${props.select ? "" : "hover:bg-blue-100 cursor-pointer"} ${props.option.style}`}
+        className={`${props.option.style} ${props.select ? "" : "hover:bg-blue-100 cursor-pointer"} font-bold text-lg p-3 rounded flex items-center justify-between h-full`}
         onClick={() => props.handleSelect(props.id)}
+        onKeyDown={handleKeyDown}
+        tabIndex={props.select ? -1 : 0}
+        aria-label={props.value}
         >
-            <div className="absolute left-10 text-xs">{props.option.text}</div>
-            <div>{props.value}</div>
-            {props.option.icon ? <img src={props.option.icon} alt={`Icon of ${props.option.text} answer`} className="absolute right-5"/> : <></>}
+            <div className="flex-grow text-center text-2xl">{props.value}</div>
+            <div className="font-outline text-2xl">{props.option.icon}</div>
         </div>
     </>
   );

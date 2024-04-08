@@ -6,21 +6,18 @@ import QuizOption from "./QuizOption";
 
 export default function QuizDisplay(props) {
   const unSelected = {
-    text: "",
-    style: "bg-white text-blue-400 font-bold text-lg p-3 rounded flex items-center justify-center h-full",
+    style: "bg-white text-blue-400",
     icon: ""
   }
 
   const rightAnswer = {
-    text: "RIGHT",
-    style: "bg-green-600 text-white font-bold text-lg p-3 rounded flex items-center justify-center h-full",
-    icon: "/assets/correct.png"
+    style: "bg-green-600 text-white",
+    icon: "✓"
   }
 
   const wrongAnswer = {
-    text: "WRONG",
-    style: "bg-red-500 text-white font-bold text-lg p-3 rounded flex items-center justify-center h-full",
-    icon: "/assets/incorrect.png"
+    style: "bg-red-500 text-white",
+    icon: "✗"
   }
 
   const quizLength = 100;
@@ -173,7 +170,7 @@ export default function QuizDisplay(props) {
               Refer to the translated text at the left. <br /> Choose the
               correct translation of the word:{" "}
             </h2>
-            <h1 className="text-4xl font-bold">{curQuestion.question}</h1>
+            <div className="text-4xl font-bold" aria-live="polite">{curQuestion.question}</div>
 
             <div className="row-span-4 grid grid-cols-1 gap-3 w-full box-shadow: 0 0 0 10px rgba(59, 130, 246, 1.0)">
               <QuizOption id={"optiona"} value={curQuestion.answer1} option={optionA} handleSelect={handleSelect} select={select}/>
