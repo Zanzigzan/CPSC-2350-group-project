@@ -41,7 +41,7 @@ $ git clone https://github.com/Zanzigzan/CPSC-2350-group-project.git
 $ cd fluentify
 ```
 
-Create a `.env` file on a text - editing software and configure the environment variables using the format: `VITE_GOOGLE_KEY= AIzaSyxxxxxx...xxxxxx`.
+Create a `.env` file on your preferred text - editing software (VS Code or Sublime Text) and configure the environment variables using the format: `VITE_GOOGLE_KEY= AIzaSyxxxxxx...xxxxxx`.
 
 Refer to the table below:
 
