@@ -1,4 +1,9 @@
 # Fluentify
+## !!! To do !!!
+> context on the project
+> development environment setup
+> instructions on how to run the application locally and how to run the tests
+>  link to the public URL, project demo, reports, presentations and any other relevant information
 
 ## Project Objectives
 Fluentify is a language learning application for language learners at the intermediate level who are looking to expand their vocabulary and improve their reading comprehension. Our app combines the power of ChatGPT and DeepL API to generate texts in the target language and create quizzes based on these texts.
