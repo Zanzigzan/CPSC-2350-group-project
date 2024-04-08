@@ -12,7 +12,7 @@ const SelectFile = (props) => {
   const [showMessage, setShowMessage] = useState(false);
   const [mouseInside, setMouseInside] = useState(false); // Track mouse inside
 
-  const { setText } = useLanguage();
+  const { setText, setSourceLanguage } = useLanguage();
 
   useEffect(() => {
     if (selectedFile) setTextContext();
@@ -37,6 +37,7 @@ const SelectFile = (props) => {
   function handleSubmit() {
     if (props.loading || !selectedFile || reading) return;
     setSelectedFile(null);
+    setSourceLanguage(detectedLanguage);
     setDetectedLanguage("");
     props.setIsOpen(true);
   }

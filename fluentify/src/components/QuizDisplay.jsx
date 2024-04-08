@@ -2,20 +2,32 @@ import React, { useState, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { generateQuiz } from "../api/quiz";
 import Spinner from "./Spinner";
+import QuizOption from "./QuizOption";
 
 export default function QuizDisplay(props) {
-  const unSelected =
-    "bg-white text-blue-400 font-bold text-lg p-3 rounded flex items-center justify-center h-full";
-  const rightAnswer =
-    "bg-green-400 text-white font-bold text-lg p-3 rounded flex items-center justify-center h-full";
-  const wrongAnswer =
-    "bg-red-400 text-white font-bold text-lg p-3 rounded flex items-center justify-center h-full";
+  const unSelected = {
+    style: "bg-white text-blue-400",
+    icon: ""
+  }
+
+  const rightAnswer = {
+    style: "bg-green-600 text-white",
+    icon: "✓"
+  }
+
+  const wrongAnswer = {
+    style: "bg-red-500 text-white",
+    icon: "✗"
+  }
+
+  const quizLength = 100;
 
   const { translatedText, sourceLanguage } = useLanguage();
 
   const [score, setScore] = useState(0);
   const [questionNum, setQuestionNum] = useState(1);
   const [curQuestion, setCurQuestion] = useState({});
+  const [pastQuestions, setPastQuestions] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
@@ -71,6 +83,12 @@ export default function QuizDisplay(props) {
         if (id == options[i]) {
           if (answer == curQuestion.correctAnswer) {
             setScore(score + 1);
+
+            if (pastQuestions.length >= quizLength) {
+              setPastQuestions([]);
+            }
+            setPastQuestions(prevQuestions => [...prevQuestions, answer]);
+
             setOption(options[i], rightAnswer);
           } else {
             setOption(options[i], wrongAnswer);
@@ -109,7 +127,7 @@ export default function QuizDisplay(props) {
     setToggle(false);
 
     try {
-      const question = await generateQuiz(translatedText, sourceLanguage);
+      const question = await generateQuiz(translatedText, sourceLanguage, pastQuestions);
       setCurQuestion(question);
     } catch (e) {
       setError("Unable to generate question. Press the button to try again.");
@@ -152,33 +170,13 @@ export default function QuizDisplay(props) {
               Refer to the translated text at the left. <br /> Choose the
               correct translation of the word:{" "}
             </h2>
-            <h1 className="text-4xl font-bold">{curQuestion.question}</h1>
+            <div className="text-4xl font-bold" aria-live="polite">{curQuestion.question}</div>
 
             <div className="row-span-4 grid grid-cols-1 gap-3 w-full box-shadow: 0 0 0 10px rgba(59, 130, 246, 1.0)">
-              <div
-                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionA}`}
-                onClick={() => handleSelect("optiona")}
-              >
-                {curQuestion.answer1}
-              </div>
-              <div
-                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionB}`}
-                onClick={() => handleSelect("optionb")}
-              >
-                {curQuestion.answer2}
-              </div>
-              <div
-                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionC}`}
-                onClick={() => handleSelect("optionc")}
-              >
-                {curQuestion.answer3}
-              </div>
-              <div
-                className={`${select ? "" : "hover:bg-blue-100 cursor-pointer"} ${optionD}`}
-                onClick={() => handleSelect("optiond")}
-              >
-                {curQuestion.answer4}
-              </div>
+              <QuizOption id={"optiona"} value={curQuestion.answer1} option={optionA} handleSelect={handleSelect} select={select}/>
+              <QuizOption id={"optionb"} value={curQuestion.answer2} option={optionB} handleSelect={handleSelect} select={select}/>
+              <QuizOption id={"optionc"} value={curQuestion.answer3} option={optionC} handleSelect={handleSelect} select={select}/>
+              <QuizOption id={"optiond"} value={curQuestion.answer4} option={optionD} handleSelect={handleSelect} select={select}/>
             </div>
             <div>
               <button
