@@ -5,10 +5,10 @@
 
 ## Features
 
-- Natural translation in 5 languages (English, )
+- Natural translation in 5 languages: English, Chinese (Simplified), French, German, Japanese, Spanish
 - Upload files for translation
 - Automatic language detection of files
-- Generate texts for translation
+- Generate texts for translation (*NOTE: not available in English*)
 - Customize difficulty of generated text
 - Quiz to practice vocabulary using words from the translated text 
 
@@ -25,7 +25,6 @@
     $ npm --version
     10.5.0
     ```
-    > Installing npm adds two commands to the system—`npm` and `npx`—both of which I'll be using while making this tutorial.
 
 2. [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is installed. 
 
@@ -62,8 +61,8 @@ Refer to the table below:
 ```fish
 $ npm install 
 $ npm run dev
-$> fluentify@0.0.0 dev
-$> vite
+> fluentify@0.0.0 dev
+> vite
   VITE v5.2.6  ready in 855 ms
 
   ➜  Local:   http://localhost:xxxx/
