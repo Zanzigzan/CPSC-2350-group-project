@@ -127,7 +127,7 @@ const SelectFile = (props) => {
           </div>
         ) : detectLanguage ? (
           <div className="mt-2 text-blue-400 font-bold">
-            Your language is not supported.
+            Your language is not supported by our APP.
           </div>
         ) : (
         <div className="mt-2 text-blue-400">
