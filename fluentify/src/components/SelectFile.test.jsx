@@ -3,7 +3,6 @@ import { describe, expect, it, vi } from "vitest";
 import SelectFile from "./SelectFile";
 import { useLanguage } from "../context/LanguageContext";
 
-
 const setLoading = vi.fn();
 const setIsOpen = vi.fn();
 const setError = vi.fn();
@@ -23,8 +22,8 @@ describe("Select File", () => {
       <SelectFile
         setLoading={setLoading}
         setIsOpen={setIsOpen}
-        setError={setError} 
-      />
+        setError={setError}
+      />,
     );
 
     // Create a text file with more than 10 words named Lost_Kitten.txt
@@ -36,7 +35,9 @@ describe("Select File", () => {
     });
 
     // Get the UI elements for the submission box and submit button
-    const input = screen.getByLabelText("Upload the File You Want to Translate");
+    const input = screen.getByLabelText(
+      "Upload the File You Want to Translate",
+    );
     const submitButton = screen.getByText("Submit");
 
     //user uploads the file and submits
@@ -45,6 +46,38 @@ describe("Select File", () => {
 
     //the filename should be displayed
     expect(screen.getByText("Lost_Kitten.txt")).toBeInTheDocument();
+    expect(setLoading).toHaveBeenCalledWith(true);
+  });
+
+  it("allows user upload for files with supported language", () => {
+    render(
+      <SelectFile
+        setLoading={setLoading}
+        setIsOpen={setIsOpen}
+        setError={setError}
+      />,
+    );
+
+    // Create a text file with more than 10 words in French named Le_Chat.txt
+    const fileContent =
+      "Il était une fois, dans un petit village en France, un chat du nom de Pierre. Pierre était un félin fier et rusé, connu pour sa vivacité et son agilité. Chaque jour, il parcourait les ruelles pavées à la recherche de quelque chose à chasser. Mais un jour, alors qu'il se promenait près d'une vieille grange, il entendit un faible grincement. Intrigué, il s'approcha et découvrit une petite souris piégée sous une poutre.";
+
+    const file = new File([fileContent], "Le_Chat.txt", {
+      type: "text/plain",
+    });
+
+    // Get the UI elements for the submission box and submit button
+    const input = screen.getByLabelText(
+      "Upload the File You Want to Translate",
+    );
+    const submitButton = screen.getByText("Submit");
+
+    //user uploads the file and submits
+    fireEvent.change(input, { target: { files: [file] } });
+    fireEvent.click(submitButton);
+
+    //the filename should be displayed
+    expect(screen.getByText("Le_Chat.txt")).toBeInTheDocument();
     expect(setLoading).toHaveBeenCalledWith(true);
   });
 });
