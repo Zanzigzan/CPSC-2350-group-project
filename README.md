@@ -90,9 +90,19 @@ $ npm run cypress:open
 - Vitest and Cypress for Testing
 - Netlify
 
+## Misc 
+[Demo Video](/Docs/Fluentify_Demo.mp4)
+[Presentation](/Docs/Presentation.pdf)
+[Report](/Docs/FinalReport.pdf)
+[AI Usage Forms](/AI%20Usage%20Declaration%20Forms/)
+
 ## License
 
 Fluentify is [MIT licensed](https://github.com/Zanzigzan/CPSC-2350-group-project/blob/main/LICENSE).
 
 ## Contributors
-[Pawel Michalski](https://github.com/Zanzigzan), [Shushama Tahsin](https://github.com/stahsin00), [Van Valdez](https://github.com/vanvaldez), [Isabelle Wang](https://github.com/Isabellewn)
+### Made with much ❤️ by:
+#### [Pawel Michalski](https://github.com/Zanzigzan)
+#### [Shushama Tahsin](https://github.com/stahsin00)
+#### [Van Valdez](https://github.com/vanvaldez)
+#### [Isabelle Wang](https://github.com/Isabellewn)
