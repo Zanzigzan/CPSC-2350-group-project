@@ -121,15 +121,21 @@ const SelectFile = (props) => {
             <Spinner size={"25px"} color={"blue-400"} />
             Reading File...
           </div>
-        ) : detectedLanguage ? (
+        ) : languages[detectedLanguage] ?  (
           <div className="mt-2 text-blue-400 font-bold">
             Detected Language: {languages[detectedLanguage]}
           </div>
-        ) : (
-          <div className="mt-2 text-blue-400">
-            Please upload file in the .txt format. <br />
+        ) : detectLanguage ? (
+          <div className="mt-2 text-blue-400 font-bold">
+            Your language is not supported.
           </div>
-        )}
+        ) : (
+        <div className="mt-2 text-blue-400">
+          Please upload file in the .txt format. <br />
+        </div>)
+        }
+        
+
       </div>
 
       <button
