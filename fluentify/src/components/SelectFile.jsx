@@ -35,7 +35,7 @@ const SelectFile = (props) => {
   };
 
   function handleSubmit() {
-    if (props.loading || !selectedFile || reading) return;
+    if (props.loading || !selectedFile || reading || !languages[detectLanguage]) return;
     setSelectedFile(null);
     setSourceLanguage(detectedLanguage);
     setDetectedLanguage("");
@@ -140,7 +140,7 @@ const SelectFile = (props) => {
 
       <button
         className={
-          detectedLanguage && !reading
+          detectedLanguage && !reading && languages[detectLanguage]
             ? "bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full"
             : "bg-gray-500 cursor-default text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full"
         }
