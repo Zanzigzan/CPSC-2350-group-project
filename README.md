@@ -78,6 +78,9 @@ Fluentify should start in your default browser.
 ```fish
 $ npm run test
 ```
+```fish
+$ npm run cypress:open
+```
 
 ## Tech stack
 
