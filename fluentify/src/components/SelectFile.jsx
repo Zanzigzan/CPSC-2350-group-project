@@ -35,7 +35,7 @@ const SelectFile = (props) => {
   };
 
   function handleSubmit() {
-    if (props.loading || !selectedFile || reading) return;
+    if (props.loading || !selectedFile || reading || !languages[detectLanguage]) return;
     setSelectedFile(null);
     setSourceLanguage(detectedLanguage);
     setDetectedLanguage("");
@@ -121,20 +121,26 @@ const SelectFile = (props) => {
             <Spinner size={"25px"} color={"blue-400"} />
             Reading File...
           </div>
-        ) : detectedLanguage ? (
+        ) : languages[detectedLanguage] ?  (
           <div className="mt-2 text-blue-400 font-bold">
             Detected Language: {languages[detectedLanguage]}
           </div>
-        ) : (
-          <div className="mt-2 text-blue-400">
-            Please upload file in the .txt format. <br />
+        ) : detectLanguage ? (
+          <div className="mt-2 text-blue-400 font-bold">
+            Your language is not supported by our APP.
           </div>
-        )}
+        ) : (
+        <div className="mt-2 text-blue-400">
+          Please upload file in the .txt format. <br />
+        </div>)
+        }
+        
+
       </div>
 
       <button
         className={
-          detectedLanguage && !reading
+          detectedLanguage && !reading && languages[detectLanguage]
             ? "bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full"
             : "bg-gray-500 cursor-default text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full"
         }
