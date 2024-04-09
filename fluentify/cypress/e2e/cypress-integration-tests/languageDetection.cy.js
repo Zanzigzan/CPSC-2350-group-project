@@ -1,6 +1,6 @@
 describe("Language Detection Feature", ()=>{
     //Test 1
-    it.skip('Upload a file using supported language, should show language detection result', ()=>{
+    it('Upload a file using supported language, should show language detection result', ()=>{
         cy.visit('https://fluent-ify.netlify.app/')
 
         const fileName = 'test file - fr.txt'
