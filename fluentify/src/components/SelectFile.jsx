@@ -35,7 +35,7 @@ const SelectFile = (props) => {
   };
 
   function handleSubmit() {
-    if (props.loading || !selectedFile || reading || !languages[detectLanguage]) return;
+    if (props.loading || !selectedFile || reading || !languages[detectedLanguage]) return;
     setSelectedFile(null);
     setSourceLanguage(detectedLanguage);
     setDetectedLanguage("");
