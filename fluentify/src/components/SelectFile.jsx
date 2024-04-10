@@ -125,7 +125,7 @@ const SelectFile = (props) => {
           <div className="mt-2 text-blue-400 font-bold">
             Detected Language: {languages[detectedLanguage]}
           </div>
-        ) : detectLanguage ? (
+        ) : detectedLanguage ? (
           <div className="mt-2 text-blue-400 font-bold">
             Your language is not supported by our APP.
           </div>
@@ -140,7 +140,7 @@ const SelectFile = (props) => {
 
       <button
         className={
-          detectedLanguage && !reading && languages[detectLanguage]
+          detectedLanguage && !reading && languages[detectedLanguage]
             ? "bg-blue-400 hover:bg-blue-700 text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full"
             : "bg-gray-500 cursor-default text-white text-lg font-bold py-2 pl-6 pr-6 rounded-full"
         }
